@@ -15,6 +15,7 @@ Horizon Data Wave provides advanced LinkedIn data extraction capabilities, allow
 ## Installation
 
 Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) in the n8n community nodes documentation.
+[NPM Packege](https://www.npmjs.com/package/n8n-nodes-hdw)
 
 ```bash
 npm install n8n-nodes-hdw
