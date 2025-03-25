@@ -1,46 +1,70 @@
-![Banner image](https://user-images.githubusercontent.com/10284570/173569848-c624317f-42b1-45a6-ab09-f0ea3c247648.png)
+# n8n-nodes-hdw
 
-# n8n-nodes-starter
+This is an n8n community node. It lets you use Horizon Data Wave LinkedIn API services in your n8n workflows.
 
-This repo contains example nodes to help you get started building your own custom integrations for [n8n](n8n.io). It includes the node linter and other dependencies.
+Horizon Data Wave provides advanced LinkedIn data extraction capabilities, allowing you to search for users, view profiles, analyze posts, and gather company information.
 
-To make your custom node available to the community, you must create it as an npm package, and [submit it to the npm registry](https://docs.npmjs.com/packages-and-modules/contributing-packages-to-the-registry).
+[n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
 
-## Prerequisites
+[Installation](#installation)  
+[Operations](#operations)  
+[Credentials](#credentials)  
+[Compatibility](#compatibility)  
+[Resources](#resources)  
 
-You need the following installed on your development machine:
+## Installation
 
-* [git](https://git-scm.com/downloads)
-* Node.js and pnpm. Minimum version Node 18. You can find instructions on how to install both using nvm (Node Version Manager) for Linux, Mac, and WSL [here](https://github.com/nvm-sh/nvm). For Windows users, refer to Microsoft's guide to [Install NodeJS on Windows](https://docs.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-windows).
-* Install n8n with:
-  ```
-  pnpm install n8n -g
-  ```
-* Recommended: follow n8n's guide to [set up your development environment](https://docs.n8n.io/integrations/creating-nodes/build/node-development-environment/).
+Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) in the n8n community nodes documentation.
 
-## Using this starter
+```bash
+npm install n8n-nodes-hdw
+```
 
-These are the basic steps for working with the starter. For detailed guidance on creating and publishing nodes, refer to the [documentation](https://docs.n8n.io/integrations/creating-nodes/).
+## Operations
 
-1. [Generate a new repository](https://github.com/n8n-io/n8n-nodes-starter/generate) from this template repository.
-2. Clone your new repo:
-   ```
-   git clone https://github.com/<your organization>/<your-repo-name>.git
-   ```
-3. Run `pnpm i` to install dependencies.
-4. Open the project in your editor.
-5. Browse the examples in `/nodes` and `/credentials`. Modify the examples, or replace them with your own nodes.
-6. Update the `package.json` to match your details.
-7. Run `pnpm lint` to check for errors or `pnpm lintfix` to automatically fix errors when possible.
-8. Test your node locally. Refer to [Run your node locally](https://docs.n8n.io/integrations/creating-nodes/test/run-node-locally/) for guidance.
-9. Replace this README with documentation for your node. Use the [README_TEMPLATE](README_TEMPLATE.md) to get started.
-10. Update the LICENSE file to use your details.
-11. [Publish](https://docs.npmjs.com/packages-and-modules/contributing-packages-to-the-registry) your package to npm.
+This node supports the following resources and operations:
 
-## More information
+### User Resource
+- **Search**: Search for LinkedIn users with various filters including keywords, name, title, company, location
+- **Get Profile**: Get detailed LinkedIn user profile information
+- **Get Posts**: Retrieve posts from a specific LinkedIn user
+- **Get Reactions**: Get reactions from a specific LinkedIn user
 
-Refer to our [documentation on creating nodes](https://docs.n8n.io/integrations/creating-nodes/) for detailed information on building your own nodes.
+### Email Resource
+- **Get User by Email**: Find LinkedIn user profiles associated with an email address
 
-## License
+### Post Resource
+- **Get Post Comments**: Retrieve comments on a LinkedIn post
+- **Get Post Reposts**: Get reposts of a LinkedIn post
 
-[MIT](https://github.com/n8n-io/n8n-nodes-starter/blob/master/LICENSE.md)
+### Company Resource
+- **Get Company**: Retrieve detailed information about a LinkedIn company
+- **Get Company Employees**: Search for employees of a specific LinkedIn company
+
+### Search Resource
+- **Sales Navigator Search**: Perform advanced user searches using LinkedIn Sales Navigator filters
+
+### Google Resource
+- **Search Companies**: Find LinkedIn companies using Google search
+- **Google Search**: Perform a general Google search
+
+## Credentials
+
+To use this node, you need an API key from Horizon Data Wave:
+
+1. Register for an account at [horizondatawave.ai](https://app.horizondatawave.ai/)
+2. Navigate to your account settings to generate an API key
+3. For operations that require account management (like chat, connections, etc.), you'll also need to provide your Account ID
+
+When setting up the node in n8n, add your credentials using the "HDW LinkedIn API" credential type.
+
+## Compatibility
+
+- Requires Node.js 18.10 or later
+- Compatible with n8n versions that support the N8N Nodes API Version 1
+
+## Resources
+
+* [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/)
+* [Horizon Data Wave API Documentation](https://horizondatawave.ai/redoc)
+* [Horizon Data Wave Website](https://horizondatawave.ai)
