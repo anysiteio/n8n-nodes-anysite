@@ -20,9 +20,12 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 2. Install nmp package: **n8n-nodes-hdw**
 ![img.png](img/img.png)
 3. Reboot you n8n app
-4. Find HDW nodes and agent tools in n8n pallet
+4. Find in n8n pallet HDW Linkedin node
 ![img_1.png](img/img_1.png)
-![img_2.png](img/img_2.png)
+
+	and HDW Linkedin Agent tool
+
+	![img_2.png](img/img_2.png)
 5. ...
 6. Profit 
 
