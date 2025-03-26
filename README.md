@@ -29,6 +29,8 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 5. ...
 6. Profit 
 
+**For local installation:**
+
 ```bash
 npm install n8n-nodes-hdw
 ```
