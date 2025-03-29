@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-hdw",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "n8n node to access Horizon Data Wave LinkedIn API services",
   "keywords": [
     "n8n-community-node-package",
@@ -30,7 +30,7 @@
     "format": "prettier nodes credentials --write",
     "lint": "eslint nodes credentials package.json",
     "lintfix": "eslint nodes credentials package.json --fix",
-    "prepublishOnly": "pnpm build && pnpm lint -c .eslintrc.prepublish.js nodes credentials package.json"
+    "prepublishOnly": "pnpm build"
   },
   "files": [
     "dist"

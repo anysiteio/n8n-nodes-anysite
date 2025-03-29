@@ -21,7 +21,8 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 ![img.png](img/img.png)
 3. Reboot you n8n app
 4. Find in n8n pallet HDW Linkedin node
-![img_1.png](img/img_1.png)
+
+	![img_1.png](img/img_1.png)
 
 	and HDW Linkedin Agent tool
 
