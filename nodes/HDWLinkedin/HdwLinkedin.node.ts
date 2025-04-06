@@ -1,4 +1,4 @@
-import { INodeType, INodeTypeDescription } from 'n8n-workflow';
+import { INodeType, INodeTypeDescription, NodeConnectionType } from 'n8n-workflow';
 
 export class HdwLinkedin implements INodeType {
 
@@ -8,15 +8,14 @@ export class HdwLinkedin implements INodeType {
 		icon: 'file:hdw_logo.png',
 		group: ['transform'],
 		version: 1,
-		// @ts-expect-error: usableAsTool is valid but not in type definitions
 		usableAsTool: true,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
 		description: 'Integrate with Horizon Data Wave LinkedIn API',
 		defaults: {
 			name: 'HDW LinkedIn',
 		},
-		inputs: ['main'],
-		outputs: ['main'],
+		inputs: [NodeConnectionType.Main],
+		outputs: [NodeConnectionType.Main],
 		credentials: [
 			{
 				name: 'hdwLinkedinApi',
@@ -42,7 +41,8 @@ export class HdwLinkedin implements INodeType {
 					{ name: 'Post', value: 'post' },
 					{ name: 'Company', value: 'company' },
 					{ name: 'Search', value: 'search' },
-					{ name: 'Google', value: 'google' }
+					{ name: 'Google', value: 'google' },
+					{ name: 'Group', value: 'group' }
 				],
 				default: 'user',
 			},
@@ -57,7 +57,7 @@ export class HdwLinkedin implements INodeType {
 						name: 'Search',
 						value: 'search',
 						description: 'Search for LinkedIn users',
-						action: 'Search for LinkedIn users',
+						action: 'Search for linked in users',
 						routing: {
 							request: {
 								method: 'POST',
@@ -74,7 +74,7 @@ export class HdwLinkedin implements INodeType {
 						name: 'Get Profile',
 						value: 'getProfile',
 						description: 'Get LinkedIn user profile',
-						action: 'Get LinkedIn user profile',
+						action: 'Get linked in user profile',
 						routing: {
 							request: {
 								method: 'POST',
@@ -92,7 +92,7 @@ export class HdwLinkedin implements INodeType {
 						name: 'Get Posts',
 						value: 'getPosts',
 						description: 'Get LinkedIn user posts',
-						action: 'Get LinkedIn user posts',
+						action: 'Get linked in user posts',
 						routing: {
 							request: {
 								method: 'POST',
@@ -109,7 +109,7 @@ export class HdwLinkedin implements INodeType {
 						name: 'Get Reactions',
 						value: 'getReactions',
 						description: 'Get LinkedIn user reactions',
-						action: 'Get LinkedIn user reactions',
+						action: 'Get linked in user reactions',
 						routing: {
 							request: {
 								method: 'POST',
@@ -136,7 +136,7 @@ export class HdwLinkedin implements INodeType {
 						name: 'Get User by Email',
 						value: 'getUserByEmail',
 						description: 'Find LinkedIn user by email',
-						action: 'Find LinkedIn user by email',
+						action: 'Find linked in user by email',
 						routing: {
 							request: {
 								method: 'POST',
@@ -163,7 +163,7 @@ export class HdwLinkedin implements INodeType {
 						name: 'Get Post Comments',
 						value: 'getPostComments',
 						description: 'Get comments on a LinkedIn post',
-						action: 'Get LinkedIn post comments',
+						action: 'Get linked in post comments',
 						routing: {
 							request: {
 								method: 'POST',
@@ -181,7 +181,7 @@ export class HdwLinkedin implements INodeType {
 						name: 'Get Post Reposts',
 						value: 'getPostReposts',
 						description: 'Get reposts of a LinkedIn post',
-						action: 'Get LinkedIn post reposts',
+						action: 'Get linked in post reposts',
 						routing: {
 							request: {
 								method: 'POST',
@@ -208,7 +208,7 @@ export class HdwLinkedin implements INodeType {
 						name: 'Get Company',
 						value: 'getCompany',
 						description: 'Get LinkedIn company information',
-						action: 'Get LinkedIn company information',
+						action: 'Get linked in company information',
 						routing: {
 							request: {
 								method: 'POST',
@@ -224,7 +224,7 @@ export class HdwLinkedin implements INodeType {
 						name: 'Get Company Employees',
 						value: 'getCompanyEmployees',
 						description: 'Get employees of a LinkedIn company',
-						action: 'Get LinkedIn company employees',
+						action: 'Get linked in company employees',
 						routing: {
 							request: {
 								method: 'POST',
@@ -234,6 +234,23 @@ export class HdwLinkedin implements INodeType {
 									keywords: '={{$parameter["keywords"]}}',
 									first_name: '={{$parameter["firstName"]}}',
 									last_name: '={{$parameter["lastName"]}}',
+									count: '={{$parameter["count"]}}',
+									timeout: '={{$parameter["timeout"]}}',
+								},
+							},
+						},
+					},
+					{
+						name: 'Get Company Posts',
+						value: 'getCompanyPosts',
+						description: 'Get posts from a LinkedIn company',
+						action: 'Get linked in company posts',
+						routing: {
+							request: {
+								method: 'POST',
+								url: '/api/linkedin/company/posts',
+								body: {
+									urn: '={{$parameter["urn"]}}',
 									count: '={{$parameter["count"]}}',
 									timeout: '={{$parameter["timeout"]}}',
 								},
@@ -254,13 +271,81 @@ export class HdwLinkedin implements INodeType {
 						name: 'Sales Navigator Search',
 						value: 'salesNavigatorSearch',
 						description: 'Advanced LinkedIn search using Sales Navigator',
-						action: 'Search LinkedIn with Sales Navigator',
+						action: 'Search linked in with sales navigator',
 						routing: {
 							request: {
 								method: 'POST',
 								url: '/api/linkedin/sn_search/users',
 								body: {
 									keywords: '={{$parameter["keywords"]}}',
+									count: '={{$parameter["count"]}}',
+									timeout: '={{$parameter["timeout"]}}',
+								},
+							},
+						},
+					},
+					{
+						name: 'Search Jobs',
+						value: 'searchJobs',
+						description: 'Search for LinkedIn jobs',
+						action: 'Search for linked in jobs',
+						routing: {
+							request: {
+								method: 'POST',
+								url: '/api/linkedin/search/jobs',
+								body: {
+									keywords: '={{$parameter["keywords"]}}',
+									count: '={{$parameter["count"]}}',
+									timeout: '={{$parameter["timeout"]}}',
+								},
+							},
+						},
+					},
+					{
+						name: 'Search Companies',
+						value: 'searchCompanies',
+						description: 'Search for LinkedIn companies',
+						action: 'Search for linked in companies',
+						routing: {
+							request: {
+								method: 'POST',
+								url: '/api/linkedin/search/companies',
+								body: {
+									keywords: '={{$parameter["keywords"]}}',
+									count: '={{$parameter["count"]}}',
+									timeout: '={{$parameter["timeout"]}}',
+								},
+							},
+						},
+					},
+					{
+						name: 'Search Industries',
+						value: 'searchIndustries',
+						description: 'Search for LinkedIn industries',
+						action: 'Search for linked in industries',
+						routing: {
+							request: {
+								method: 'POST',
+								url: '/api/linkedin/search/industries',
+								body: {
+									name: '={{$parameter["name"]}}',
+									count: '={{$parameter["count"]}}',
+									timeout: '={{$parameter["timeout"]}}',
+								},
+							},
+						},
+					},
+					{
+						name: 'Search Locations',
+						value: 'searchLocations',
+						description: 'Search for LinkedIn locations',
+						action: 'Search for linked in locations',
+						routing: {
+							request: {
+								method: 'POST',
+								url: '/api/linkedin/search/locations',
+								body: {
+									name: '={{$parameter["name"]}}',
 									count: '={{$parameter["count"]}}',
 									timeout: '={{$parameter["timeout"]}}',
 								},
@@ -281,7 +366,7 @@ export class HdwLinkedin implements INodeType {
 						name: 'Search Companies',
 						value: 'searchCompanies',
 						description: 'Search for LinkedIn companies using Google',
-						action: 'Search for LinkedIn companies via Google',
+						action: 'Search for linked in companies via google',
 						routing: {
 							request: {
 								method: 'POST',
@@ -299,7 +384,7 @@ export class HdwLinkedin implements INodeType {
 						name: 'Google Search',
 						value: 'googleSearch',
 						description: 'Perform a Google search',
-						action: 'Perform a Google search',
+						action: 'Perform a google search',
 						routing: {
 							request: {
 								method: 'POST',
@@ -314,6 +399,32 @@ export class HdwLinkedin implements INodeType {
 					},
 				],
 				default: 'searchCompanies',
+			},
+			{
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: { show: { resource: ['group'] } },
+				options: [
+					{
+						name: 'Get Group',
+						value: 'getGroup',
+						description: 'Get LinkedIn group information',
+						action: 'Get linked in group information',
+						routing: {
+							request: {
+								method: 'POST',
+								url: '/api/linkedin/group',
+								body: {
+									group: '={{$parameter["group"]}}',
+									timeout: '={{$parameter["timeout"]}}',
+								},
+							},
+						},
+					},
+				],
+				default: 'getGroup',
 			},
 			{
 				displayName: 'Keywords',
@@ -492,6 +603,7 @@ export class HdwLinkedin implements INodeType {
 				displayName: 'Email',
 				name: 'email',
 				type: 'string',
+				placeholder: 'name@email.com',
 				required: true,
 				default: '',
 				description: 'Email address to search for',
@@ -666,6 +778,48 @@ export class HdwLinkedin implements INodeType {
 				displayOptions: { show: { resource: ['company'], operation: ['getCompanyEmployees'] } },
 			},
 			{
+				displayName: 'Company URN',
+				name: 'urn',
+				type: 'string',
+				required: true,
+				default: '',
+				description: 'Company URN, only company urn type is allowed (e.g. "company:11130470")',
+				displayOptions: { show: { resource: ['company'], operation: ['getCompanyPosts'] } },
+			},
+			{
+				displayName: 'Count',
+				name: 'count',
+				type: 'number',
+				default: 10,
+				description: 'Maximum number of results',
+				displayOptions: { show: { resource: ['company'], operation: ['getCompanyPosts'] } },
+			},
+			{
+				displayName: 'Timeout',
+				name: 'timeout',
+				type: 'number',
+				default: 300,
+				description: 'Timeout in seconds',
+				displayOptions: { show: { resource: ['company'], operation: ['getCompanyPosts'] } },
+			},
+			{
+				displayName: 'Group',
+				name: 'group',
+				type: 'string',
+				required: true,
+				default: '',
+				description: 'Group URN or URL',
+				displayOptions: { show: { resource: ['group'], operation: ['getGroup'] } },
+			},
+			{
+				displayName: 'Timeout',
+				name: 'timeout',
+				type: 'number',
+				default: 300,
+				description: 'Timeout in seconds',
+				displayOptions: { show: { resource: ['group'], operation: ['getGroup'] } },
+			},
+			{
 				displayName: 'Keywords',
 				name: 'keywords',
 				type: 'string',
@@ -776,7 +930,7 @@ export class HdwLinkedin implements INodeType {
 						name: 'company_sizes',
 						type: 'multiOptions',
 						options: [
-							{ name: 'Self-employed', value: 'Self-employed' },
+							{ name: 'Self-Employed', value: 'Self-employed' },
 							{ name: '1-10', value: '1-10' },
 							{ name: '11-50', value: '11-50' },
 							{ name: '51-200', value: '51-200' },
@@ -821,6 +975,265 @@ export class HdwLinkedin implements INodeType {
 						description: 'Profile languages',
 					},
 				],
+			},
+			// Parameters for Search Jobs
+			{
+				displayName: 'Keywords',
+				name: 'keywords',
+				type: 'string',
+				default: '',
+				description: 'Any keyword for searching jobs. For exact search put desired keywords into brackets.',
+				displayOptions: { show: { resource: ['search'], operation: ['searchJobs'] } },
+			},
+			{
+				displayName: 'Count',
+				name: 'count',
+				type: 'number',
+				default: 10,
+				description: 'Maximum number of results',
+				displayOptions: { show: { resource: ['search'], operation: ['searchJobs'] } },
+			},
+			{
+				displayName: 'Timeout',
+				name: 'timeout',
+				type: 'number',
+				default: 300,
+				description: 'Timeout in seconds',
+				displayOptions: { show: { resource: ['search'], operation: ['searchJobs'] } },
+			},
+			{
+				displayName: 'Additional Filters',
+				name: 'additionalFilters',
+				type: 'collection',
+				placeholder: 'Add Filter',
+				default: {},
+				displayOptions: { show: { resource: ['search'], operation: ['searchJobs'] } },
+				options: [
+					{
+						displayName: 'Sort',
+						name: 'sort',
+						type: 'options',
+						options: [
+							{ name: 'Recent', value: 'recent' },
+							{ name: 'Relevant', value: 'relevant' },
+						],
+						default: 'relevant',
+						description: 'Job sorting type',
+						routing: { request: { body: { sort: '={{$value}}' } } }
+					},
+					{
+						displayName: 'Experience Level',
+						name: 'experience_level',
+						type: 'multiOptions',
+						options: [
+							{ name: 'Internship', value: 'internship' },
+							{ name: 'Entry Level', value: 'entry_level' },
+							{ name: 'Associate', value: 'associate' },
+							{ name: 'Mid-Senior', value: 'mid_senior' },
+							{ name: 'Director', value: 'director' },
+							{ name: 'Executive', value: 'executive' },
+						],
+						default: [],
+						description: 'Job experience level',
+						routing: { request: { body: { experience_level: '={{$value}}' } } }
+					},
+					{
+						displayName: 'Job Types',
+						name: 'job_types',
+						type: 'multiOptions',
+						options: [
+							{ name: 'Full Time', value: 'full_time' },
+							{ name: 'Part Time', value: 'part_time' },
+							{ name: 'Contract', value: 'contract' },
+							{ name: 'Temporary', value: 'temporary' },
+							{ name: 'Internship', value: 'internship' },
+							{ name: 'Other', value: 'other' },
+						],
+						default: [],
+						description: 'Job types',
+						routing: { request: { body: { job_types: '={{$value}}' } } }
+					},
+					{
+						displayName: 'Work Types',
+						name: 'work_types',
+						type: 'multiOptions',
+						options: [
+							{ name: 'On-site', value: 'on-site' },
+							{ name: 'Hybrid', value: 'hybrid' },
+							{ name: 'Remote', value: 'remote' },
+						],
+						default: [],
+						description: 'Work types',
+						routing: { request: { body: { work_types: '={{$value}}' } } }
+					},
+					{
+						displayName: 'Industry',
+						name: 'industry',
+						type: 'string',
+						default: '',
+						description: 'Industry URN (industry:*) or name',
+						routing: { request: { body: { industry: '={{$value}}' } } }
+					},
+					{
+						displayName: 'Company',
+						name: 'company',
+						type: 'string',
+						default: '',
+						description: 'Company URN (company:*) or comma-separated list of URNs',
+						routing: {
+							send: {
+								type: 'body',
+								property: 'company',
+								value: '={{ $value.includes(",") ? $value.split(",").map(item => item.trim()) : $value }}',
+							},
+						}
+					},
+					{
+						displayName: 'Location',
+						name: 'location',
+						type: 'string',
+						default: 'worldwide',
+						description: 'Job location',
+						routing: { request: { body: { location: '={{$value}}' } } }
+					},
+					{
+						displayName: 'From Date (timestamp)',
+						name: 'from_date',
+						type: 'number',
+						default: '',
+						description: 'Starting date for jobs search (as timestamp)',
+						routing: { request: { body: { from_date: '={{$value}}' } } }
+					},
+					{
+						displayName: 'To Date (timestamp)',
+						name: 'to_date',
+						type: 'number',
+						default: '',
+						description: 'Ending date for jobs search (as timestamp)',
+						routing: { request: { body: { to_date: '={{$value}}' } } }
+					},
+				],
+			},
+			// Parameters for Search Companies
+			{
+				displayName: 'Keywords',
+				name: 'keywords',
+				type: 'string',
+				default: '',
+				description: 'Any keyword for searching companies. For exact search put desired keywords into brackets.',
+				displayOptions: { show: { resource: ['search'], operation: ['searchCompanies'] } },
+			},
+			{
+				displayName: 'Count',
+				name: 'count',
+				type: 'number',
+				default: 10,
+				description: 'Maximum number of results',
+				displayOptions: { show: { resource: ['search'], operation: ['searchCompanies'] } },
+			},
+			{
+				displayName: 'Timeout',
+				name: 'timeout',
+				type: 'number',
+				default: 300,
+				description: 'Timeout in seconds',
+				displayOptions: { show: { resource: ['search'], operation: ['searchCompanies'] } },
+			},
+			{
+				displayName: 'Additional Filters',
+				name: 'additionalFilters',
+				type: 'collection',
+				placeholder: 'Add Filter',
+				default: {},
+				displayOptions: { show: { resource: ['search'], operation: ['searchCompanies'] } },
+				options: [
+					{
+						displayName: 'Location',
+						name: 'location',
+						type: 'string',
+						default: '',
+						description: 'Location URN (geo:*) or name',
+						routing: { request: { body: { location: '={{$value}}' } } }
+					},
+					{
+						displayName: 'Industry',
+						name: 'industry',
+						type: 'string',
+						default: '',
+						description: 'Industry URN (industry:*) or name',
+						routing: { request: { body: { industry: '={{$value}}' } } }
+					},
+					{
+						displayName: 'Employee Count',
+						name: 'employee_count',
+						type: 'multiOptions',
+						options: [
+							{ name: '1-10', value: '1-10' },
+							{ name: '11-50', value: '11-50' },
+							{ name: '51-200', value: '51-200' },
+							{ name: '201-500', value: '201-500' },
+							{ name: '501-1,000', value: '501-1000' },
+							{ name: '1,001-5,000', value: '1001-5000' },
+							{ name: '5,001-10,000', value: '5001-10000' },
+							{ name: '10,001+', value: '10001+' },
+						],
+						default: [],
+						description: 'Company sizes to filter by',
+						routing: { request: { body: { employee_count: '={{$value}}' } } }
+					},
+				],
+			},
+			// Parameters for Search Industries
+			{
+				displayName: 'Industry Name',
+				name: 'name',
+				type: 'string',
+				required: true,
+				default: '',
+				description: 'Industry name to search for',
+				displayOptions: { show: { resource: ['search'], operation: ['searchIndustries'] } },
+			},
+			{
+				displayName: 'Count',
+				name: 'count',
+				type: 'number',
+				default: 10,
+				description: 'Maximum number of results',
+				displayOptions: { show: { resource: ['search'], operation: ['searchIndustries'] } },
+			},
+			{
+				displayName: 'Timeout',
+				name: 'timeout',
+				type: 'number',
+				default: 300,
+				description: 'Timeout in seconds',
+				displayOptions: { show: { resource: ['search'], operation: ['searchIndustries'] } },
+			},
+			// Parameters for Search Locations
+			{
+				displayName: 'Location Name',
+				name: 'name',
+				type: 'string',
+				required: true,
+				default: '',
+				description: 'Location name to search for',
+				displayOptions: { show: { resource: ['search'], operation: ['searchLocations'] } },
+			},
+			{
+				displayName: 'Count',
+				name: 'count',
+				type: 'number',
+				default: 10,
+				description: 'Maximum number of results',
+				displayOptions: { show: { resource: ['search'], operation: ['searchLocations'] } },
+			},
+			{
+				displayName: 'Timeout',
+				name: 'timeout',
+				type: 'number',
+				default: 300,
+				description: 'Timeout in seconds',
+				displayOptions: { show: { resource: ['search'], operation: ['searchLocations'] } },
 			},
 			{
 				displayName: 'Keywords',

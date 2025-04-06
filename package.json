@@ -1,10 +1,12 @@
 {
   "name": "n8n-nodes-hdw",
-  "version": "0.4.0",
-  "description": "n8n node to access Horizon Data Wave LinkedIn API services",
+  "version": "0.5.1",
+  "description": "n8n node to access Horizon Data Wave API services",
   "keywords": [
     "n8n-community-node-package",
     "linkedin",
+    "twitter",
+    "x",
     "hdw",
     "horizon data wave"
   ],
@@ -41,12 +43,14 @@
       "dist/credentials/HDWLinkedinApi.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/HDWLinkedin/HdwLinkedin.node.js"
+      "dist/nodes/HDWLinkedin/HdwLinkedin.node.js",
+      "dist/nodes/HDWLinkedin/HdwLinkedinManagement.node.js",
+      "dist/nodes/HDWLinkedin/HdwTwitter.node.js"
     ]
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^8.28.0",
-    "@typescript-eslint/parser": "^7.18.0",
+    "@typescript-eslint/eslint-plugin": "^8.29.0",
+    "@typescript-eslint/parser": "^8.29.0",
     "eslint": "^8.56.0",
     "eslint-plugin-n8n-nodes-base": "^1.16.1",
     "gulp": "^4.0.2",

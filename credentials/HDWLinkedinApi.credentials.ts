@@ -15,6 +15,7 @@ export class HDWLinkedinApi implements ICredentialType {
 			displayName: 'API Key',
 			name: 'apiKey',
 			type: 'string',
+			typeOptions: { password: true },
 			default: '',
 			required: true,
 		},
@@ -24,7 +25,6 @@ export class HDWLinkedinApi implements ICredentialType {
 			type: 'string',
 			default: '',
 			description: 'Required for management API endpoints (chat, connections, posts, etc.)',
-			required: false,
 		},
 	];
 
