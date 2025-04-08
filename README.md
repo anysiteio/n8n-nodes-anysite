@@ -27,7 +27,7 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 	and HDW Linkedin Agent tool
 
 	![img_2.png](img/img_2.png)
-5. ...
+5. !!!REBOOT YOUR N8N APP!!!
 6. Profit 
 
 **For local installation:**

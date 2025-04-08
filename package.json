@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-hdw",
-  "version": "0.5.1",
+  "version": "0.6.1",
   "description": "n8n node to access Horizon Data Wave API services",
   "keywords": [
     "n8n-community-node-package",
@@ -45,7 +45,9 @@
     "nodes": [
       "dist/nodes/HDWLinkedin/HdwLinkedin.node.js",
       "dist/nodes/HDWLinkedin/HdwLinkedinManagement.node.js",
-      "dist/nodes/HDWLinkedin/HdwTwitter.node.js"
+      "dist/nodes/HDWLinkedin/HdwTwitter.node.js",
+      "dist/nodes/HDWLinkedin/HdwWebParser.node.js",
+      "dist/nodes/HDWLinkedin/HdwJobBoards.node.js"
     ]
   },
   "devDependencies": {
