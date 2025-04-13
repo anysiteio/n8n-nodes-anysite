@@ -213,7 +213,7 @@ export class HdwWebParser implements INodeType {
 				const body: Record<string, any> = {};
 
 				// Use custom base URL if provided, otherwise use default
-				const baseURL = customBaseUrl || 'https://api.horizondatawave.ai/api/firecrawl';
+				const baseURL = customBaseUrl || 'https://api.horizondatawave.ai/api/website';
 
 				if (operation === 'scrape') {
 					endpoint = '/scrape';
