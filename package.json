@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-hdw",
-  "version": "0.6.1",
+  "version": "0.8.3",
   "description": "n8n node to access Horizon Data Wave API services",
   "keywords": [
     "n8n-community-node-package",
@@ -51,6 +51,7 @@
     ]
   },
   "devDependencies": {
+    "@types/node": "^22.14.1",
     "@typescript-eslint/eslint-plugin": "^8.29.0",
     "@typescript-eslint/parser": "^8.29.0",
     "eslint": "^8.56.0",

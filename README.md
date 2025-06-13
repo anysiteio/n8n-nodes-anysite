@@ -1,6 +1,6 @@
 # n8n-nodes-hdw
 
-This is an n8n community node. It lets you use Horizon Data Wave services for LinkedIn and Twitter (X) in your n8n workflows.
+This is an n8n community node. It lets you use Horizon Data Wave services for LinkedIn, Twitter (X), and website parsing in your n8n workflows.
 
 Horizon Data Wave provides advanced social network data extraction capabilities, allowing you to search for users, view profiles, analyze posts, gather company information, and manage social media accounts.
 
@@ -38,7 +38,7 @@ npm install n8n-nodes-hdw
 
 ## Operations
 
-This node package includes three separate nodes, each with its own set of capabilities:
+This node package includes four separate nodes, each with its own set of capabilities:
 
 ### HDW LinkedIn Node
 
@@ -114,6 +114,14 @@ Provides access to Twitter (X) data:
   * Date range specification
   * Search type (Top or Latest)
 
+### HDW Web Parser Node (beta)
+
+Provides powerful website scraping and crawling functionality via the Horizon Data Wave API:
+
+* **Scrape**: Scrape a single webpage and return one or more of the following formats – Markdown, HTML, raw HTML, links, screenshot, or full-page screenshot. Options are available to extract only the main content, switch to a mobile viewport, skip TLS verification, remove base64 images, and set a load timeout.
+* **Map**: Discover and list URLs starting from a given page. You can control whether sitemaps are used, include sub-domains, specify a search term filter, and set a maximum number of URLs to return.
+* **Crawl**: Launch a crawl that traverses multiple pages beginning at a start URL with a configurable overall timeout.
+
 ## Credentials
 
 To use this node, you need an API key from Horizon Data Wave:
@@ -132,5 +140,5 @@ When setting up the node in n8n, add your credentials using the "HDW LinkedIn AP
 ## Resources
 
 * [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/)
-* [Horizon Data Wave API Documentation](https://horizondatawave.ai/redoc)
+* [Horizon Data Wave API Documentation](https://api.horizondatawave.ai/redoc)
 * [Horizon Data Wave Website](https://horizondatawave.ai)

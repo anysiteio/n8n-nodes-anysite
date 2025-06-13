@@ -1,4 +1,10 @@
-import { IExecuteFunctions, INodeExecutionData, INodeType, INodeTypeDescription, NodeConnectionType } from 'n8n-workflow';
+import {
+	IExecuteFunctions,
+	INodeExecutionData,
+	INodeType,
+	INodeTypeDescription,
+	NodeConnectionType,
+} from 'n8n-workflow';
 
 export class HdwWebParser implements INodeType {
 	description: INodeTypeDescription = {
@@ -63,7 +69,6 @@ export class HdwWebParser implements INodeType {
 				default: '',
 				description: 'Custom API base URL (leave empty to use default)',
 			},
-			// Scrape Parameters
 			{
 				displayName: 'URL',
 				name: 'url',
@@ -117,7 +122,7 @@ export class HdwWebParser implements INodeType {
 				displayName: 'Timeout (ms)',
 				name: 'timeout',
 				type: 'number',
-				default: 10000,
+				default: 1500,
 				description: 'Maximum time in milliseconds to wait for the page to load',
 				displayOptions: { show: { operation: ['scrape'] } },
 			},
@@ -129,7 +134,6 @@ export class HdwWebParser implements INodeType {
 				description: 'Remove base64 encoded images from output',
 				displayOptions: { show: { operation: ['scrape'] } },
 			},
-			// Map Parameters
 			{
 				displayName: 'URL',
 				name: 'url',
@@ -179,7 +183,6 @@ export class HdwWebParser implements INodeType {
 				description: 'Maximum number of URLs to return',
 				displayOptions: { show: { operation: ['map'] } },
 			},
-			// Crawl Parameters
 			{
 				displayName: 'URL',
 				name: 'url',
@@ -208,12 +211,10 @@ export class HdwWebParser implements INodeType {
 			try {
 				const operation = this.getNodeParameter('operation', i) as string;
 				const customBaseUrl = this.getNodeParameter('baseUrl', i, '') as string;
+				const baseURL = customBaseUrl || 'https://api.horizondatawave.ai/api/website';
 
 				let endpoint = '';
 				const body: Record<string, any> = {};
-
-				// Use custom base URL if provided, otherwise use default
-				const baseURL = customBaseUrl || 'https://api.horizondatawave.ai/api/website';
 
 				if (operation === 'scrape') {
 					endpoint = '/scrape';
@@ -224,22 +225,18 @@ export class HdwWebParser implements INodeType {
 					body.skipTlsVerification = this.getNodeParameter('skipTlsVerification', i) as boolean;
 					body.timeout = this.getNodeParameter('timeout', i) as number;
 					body.removeBase64Images = this.getNodeParameter('removeBase64Images', i) as boolean;
-				}
-				else if (operation === 'map') {
+				} else if (operation === 'map') {
 					endpoint = '/map';
 					body.url = this.getNodeParameter('url', i) as string;
-
 					const search = this.getNodeParameter('search', i, '') as string;
 					if (search) {
 						body.search = search;
 					}
-
 					body.ignoreSitemap = this.getNodeParameter('ignoreSitemap', i) as boolean;
 					body.sitemapOnly = this.getNodeParameter('sitemapOnly', i) as boolean;
 					body.includeSubdomains = this.getNodeParameter('includeSubdomains', i) as boolean;
 					body.limit = this.getNodeParameter('limit', i) as number;
-				}
-				else if (operation === 'crawl') {
+				} else if (operation === 'crawl') {
 					endpoint = '/crawl';
 					body.url = this.getNodeParameter('url', i) as string;
 					body.timeout = this.getNodeParameter('timeout', i) as number;
@@ -262,11 +259,77 @@ export class HdwWebParser implements INodeType {
 					options
 				);
 
-				returnData.push({ json: responseData });
-			} catch (error) {
+				if (Array.isArray(responseData)) {
+					for (const element of responseData) {
+						returnData.push({ json: element });
+					}
+				} else {
+					returnData.push({ json: responseData });
+				}
+			} catch (error: any) {
+				// Enhanced error handling to extract information from headers and response body
+				let errorMessage = error.message;
+				let errorDetails = 'No detailed error information available';
+				let httpStatus = '';
+				let apiError = '';
+				let requestId = '';
+				let executionTime = '';
+				let tokenPoints = '';
+
+				// Extract information from HTTP response if available
+				if (error.response) {
+					httpStatus = error.response.status || '';
+					
+					// Extract custom headers from HDW API
+					if (error.response.headers) {
+						apiError = error.response.headers['x-error'] || '';
+						requestId = error.response.headers['x-request-id'] || '';
+						executionTime = error.response.headers['x-execution-time'] || '';
+						tokenPoints = error.response.headers['x-token-points'] || '';
+					}
+
+					// Try to get error details from response body
+					if (error.response.data) {
+						if (typeof error.response.data === 'string') {
+							errorDetails = error.response.data;
+						} else if (typeof error.response.data === 'object') {
+							errorDetails = JSON.stringify(error.response.data);
+						}
+					}
+
+					// If we have API error from headers, use it as the main error message
+					if (apiError) {
+						errorMessage = `${apiError} (HTTP ${httpStatus})`;
+					}
+
+					// Build comprehensive error details
+					const detailParts = [];
+					if (apiError) detailParts.push(`API Error: ${apiError}`);
+					if (httpStatus) detailParts.push(`HTTP Status: ${httpStatus}`);
+					if (requestId) detailParts.push(`Request ID: ${requestId}`);
+					if (executionTime) detailParts.push(`Execution Time: ${executionTime}s`);
+					if (tokenPoints) detailParts.push(`Token Points: ${tokenPoints}`);
+					if (error.response.data && error.response.data !== '{}') {
+						detailParts.push(`Response Body: ${typeof error.response.data === 'object' ? JSON.stringify(error.response.data) : error.response.data}`);
+					}
+
+					if (detailParts.length > 0) {
+						errorDetails = detailParts.join(' | ');
+					}
+				}
+
 				if (this.continueOnFail()) {
-					// @ts-ignore
-					returnData.push({ json: { error: error.message } });
+					returnData.push({
+						json: {
+							error: errorMessage,
+							details: errorDetails,
+							httpStatus: httpStatus,
+							apiError: apiError,
+							requestId: requestId,
+							executionTime: executionTime,
+							tokenPoints: tokenPoints
+						}
+					});
 					continue;
 				}
 				throw error;

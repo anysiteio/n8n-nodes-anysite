@@ -1,0 +1,21 @@
+{
+	"node": "n8n-nodes-base.hdw",
+	"nodeVersion": "1.0",
+	"codexVersion": "1.0",
+	"categories": [
+		"Sales",
+		"Communication"
+	],
+	"resources": {
+		"credentialDocumentation": [
+			{
+				"url": "https://app.horizondatawave.ai/"
+			}
+		],
+		"primaryDocumentation": [
+			{
+				"url": "https://horizondatawave.ai/"
+			}
+		]
+	}
+}

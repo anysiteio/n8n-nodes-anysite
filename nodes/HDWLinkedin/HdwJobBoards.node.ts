@@ -1,4 +1,10 @@
-import { INodeType, INodeTypeDescription, NodeConnectionType } from 'n8n-workflow';
+import {
+	IExecuteFunctions,
+	INodeExecutionData,
+	INodeType,
+	INodeTypeDescription,
+	NodeConnectionType,
+} from 'n8n-workflow';
 
 export class HdwJobBoards implements INodeType {
 	description: INodeTypeDescription = {
@@ -66,7 +72,6 @@ export class HdwJobBoards implements INodeType {
 				],
 				default: 'getJobList',
 			},
-			// Glassdoor Job List Parameters
 			{
 				displayName: 'Keyword',
 				name: 'keyword',
@@ -217,7 +222,144 @@ export class HdwJobBoards implements INodeType {
 						routing: { request: { body: { job_type: '={{$value}}' } } }
 					},
 				],
-			}
+			},
 		],
 	};
+
+	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
+		const items = this.getInputData();
+		const returnData: INodeExecutionData[] = [];
+
+		const credentials = await this.getCredentials('hdwLinkedinApi');
+		if (!credentials) {
+			throw new Error('No credentials provided!');
+		}
+		const accountId = credentials.accountId as string;
+		if (!accountId) {
+			throw new Error('Account ID is missing in credentials!');
+		}
+
+		const baseURL = 'https://api.horizondatawave.ai';
+
+		for (let i = 0; i < items.length; i++) {
+			try {
+				const resource = this.getNodeParameter('resource', i) as string;
+				const operation = this.getNodeParameter('operation', i) as string;
+				const timeout = this.getNodeParameter('timeout', i) as number;
+				let endpoint = '';
+				const body: Record<string, any> = {
+					timeout,
+					account_id: accountId,
+				};
+
+				if (resource === 'glassdoor' && operation === 'getJobList') {
+					endpoint = '/api/glassdoor/joblist';
+					body.keyword = this.getNodeParameter('keyword', i) as string;
+					body.count = this.getNodeParameter('count', i) as number;
+
+					const additionalFilters = this.getNodeParameter('additionalFilters', i, {}) as Record<string, any>;
+					for (const key in additionalFilters) {
+						if (additionalFilters.hasOwnProperty(key) && additionalFilters[key] !== '') {
+							body[key] = additionalFilters[key];
+						}
+					}
+				}
+
+				const options = {
+					method: 'POST' as const,
+					url: `${baseURL}${endpoint}`,
+					body,
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json',
+					},
+					json: true,
+				};
+
+				const responseData = await this.helpers.httpRequestWithAuthentication.call(
+					this,
+					'hdwLinkedinApi',
+					options
+				);
+
+				if (Array.isArray(responseData)) {
+					for (const element of responseData) {
+						returnData.push({ json: element });
+					}
+				} else {
+					returnData.push({ json: responseData });
+				}
+
+			} catch (error: any) {
+				// Enhanced error handling to extract information from headers and response body
+				let errorMessage = error.message;
+				let errorDetails = 'No detailed error information available';
+				let httpStatus = '';
+				let apiError = '';
+				let requestId = '';
+				let executionTime = '';
+				let tokenPoints = '';
+
+				// Extract information from HTTP response if available
+				if (error.response) {
+					httpStatus = error.response.status || '';
+					
+					// Extract custom headers from HDW API
+					if (error.response.headers) {
+						apiError = error.response.headers['x-error'] || '';
+						requestId = error.response.headers['x-request-id'] || '';
+						executionTime = error.response.headers['x-execution-time'] || '';
+						tokenPoints = error.response.headers['x-token-points'] || '';
+					}
+
+					// Try to get error details from response body
+					if (error.response.data) {
+						if (typeof error.response.data === 'string') {
+							errorDetails = error.response.data;
+						} else if (typeof error.response.data === 'object') {
+							errorDetails = JSON.stringify(error.response.data);
+						}
+					}
+
+					// If we have API error from headers, use it as the main error message
+					if (apiError) {
+						errorMessage = `${apiError} (HTTP ${httpStatus})`;
+					}
+
+					// Build comprehensive error details
+					const detailParts = [];
+					if (apiError) detailParts.push(`API Error: ${apiError}`);
+					if (httpStatus) detailParts.push(`HTTP Status: ${httpStatus}`);
+					if (requestId) detailParts.push(`Request ID: ${requestId}`);
+					if (executionTime) detailParts.push(`Execution Time: ${executionTime}s`);
+					if (tokenPoints) detailParts.push(`Token Points: ${tokenPoints}`);
+					if (error.response.data && error.response.data !== '{}') {
+						detailParts.push(`Response Body: ${typeof error.response.data === 'object' ? JSON.stringify(error.response.data) : error.response.data}`);
+					}
+
+					if (detailParts.length > 0) {
+						errorDetails = detailParts.join(' | ');
+					}
+				}
+
+				if (this.continueOnFail()) {
+					returnData.push({
+						json: {
+							error: errorMessage,
+							details: errorDetails,
+							httpStatus: httpStatus,
+							apiError: apiError,
+							requestId: requestId,
+							executionTime: executionTime,
+							tokenPoints: tokenPoints
+						}
+					});
+					continue;
+				}
+				throw error;
+			}
+		}
+
+		return [returnData];
+	}
 }

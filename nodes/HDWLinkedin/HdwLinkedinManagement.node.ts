@@ -241,17 +241,21 @@ export class HdwLinkedinManagement implements INodeType {
 
 		const credentials = await this.getCredentials('hdwLinkedinApi');
 		if (!credentials) {
-			// eslint-disable-next-line n8n-nodes-base/node-execute-block-wrong-error-thrown
 			throw new Error('No credentials provided!');
 		}
 
 		const accountId = credentials.accountId as string;
 		if (!accountId) {
-			// eslint-disable-next-line n8n-nodes-base/node-execute-block-wrong-error-thrown
 			throw new Error('Account ID is missing in credentials!');
 		}
 
 		const baseURL = 'https://api.horizondatawave.ai';
+		const delayInMs = 1000;
+
+		const sleep = (ms: number): Promise<void> =>
+			new Promise((resolve) => {
+				setTimeout(resolve, ms);
+			});
 
 		for (let i = 0; i < items.length; i++) {
 			try {
@@ -300,7 +304,6 @@ export class HdwLinkedinManagement implements INodeType {
 						}
 						body.count = this.getNodeParameter('count', i) as number;
 
-						// Если указан target_user, то добавляем его в запрос
 						const targetUser = this.getNodeParameter('targetUser', i, '') as string;
 						if (targetUser) {
 							body.target_user = targetUser;
@@ -336,11 +339,81 @@ export class HdwLinkedinManagement implements INodeType {
 					options
 				);
 
-				returnData.push({ json: responseData });
-			} catch (error) {
+				if (Array.isArray(responseData)) {
+					for (const element of responseData) {
+						returnData.push({ json: element });
+					}
+				} else {
+					returnData.push({ json: responseData });
+				}
+
+				if (i < items.length - 1) {
+					await sleep(delayInMs);
+				}
+			} catch (error: any) {
+				// Enhanced error handling to extract information from headers and response body
+				let errorMessage = error.message;
+				let errorDetails = 'No detailed error information available';
+				let httpStatus = '';
+				let apiError = '';
+				let requestId = '';
+				let executionTime = '';
+				let tokenPoints = '';
+
+				// Extract information from HTTP response if available
+				if (error.response) {
+					httpStatus = error.response.status || '';
+					
+					// Extract custom headers from HDW API
+					if (error.response.headers) {
+						apiError = error.response.headers['x-error'] || '';
+						requestId = error.response.headers['x-request-id'] || '';
+						executionTime = error.response.headers['x-execution-time'] || '';
+						tokenPoints = error.response.headers['x-token-points'] || '';
+					}
+
+					// Try to get error details from response body
+					if (error.response.data) {
+						if (typeof error.response.data === 'string') {
+							errorDetails = error.response.data;
+						} else if (typeof error.response.data === 'object') {
+							errorDetails = JSON.stringify(error.response.data);
+						}
+					}
+
+					// If we have API error from headers, use it as the main error message
+					if (apiError) {
+						errorMessage = `${apiError} (HTTP ${httpStatus})`;
+					}
+
+					// Build comprehensive error details
+					const detailParts = [];
+					if (apiError) detailParts.push(`API Error: ${apiError}`);
+					if (httpStatus) detailParts.push(`HTTP Status: ${httpStatus}`);
+					if (requestId) detailParts.push(`Request ID: ${requestId}`);
+					if (executionTime) detailParts.push(`Execution Time: ${executionTime}s`);
+					if (tokenPoints) detailParts.push(`Token Points: ${tokenPoints}`);
+					if (error.response.data && error.response.data !== '{}') {
+						detailParts.push(`Response Body: ${typeof error.response.data === 'object' ? JSON.stringify(error.response.data) : error.response.data}`);
+					}
+
+					if (detailParts.length > 0) {
+						errorDetails = detailParts.join(' | ');
+					}
+				}
+
 				if (this.continueOnFail()) {
-					// @ts-ignore
-					returnData.push({ json: { error: error.message } });
+					returnData.push({
+						json: {
+							error: errorMessage,
+							details: errorDetails,
+							httpStatus: httpStatus,
+							apiError: apiError,
+							requestId: requestId,
+							executionTime: executionTime,
+							tokenPoints: tokenPoints
+						}
+					});
 					continue;
 				}
 				throw error;
