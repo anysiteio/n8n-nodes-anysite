@@ -1,9 +1,5 @@
 // credentials/HDWLinkedinApi.credentials.ts
-import {
-	IAuthenticateGeneric,
-	ICredentialType,
-	INodeProperties,
-} from 'n8n-workflow';
+import { IAuthenticateGeneric, ICredentialType, INodeProperties } from 'n8n-workflow';
 
 export class HDWLinkedinApi implements ICredentialType {
 	name = 'hdwLinkedinApi';
@@ -32,8 +28,8 @@ export class HDWLinkedinApi implements ICredentialType {
 		type: 'generic',
 		properties: {
 			headers: {
-				'access-token': '={{$credentials.apiKey}}'
-			}
-		}
+				'access-token': '={{$credentials.apiKey}}',
+			},
+		},
 	} as IAuthenticateGeneric;
 }

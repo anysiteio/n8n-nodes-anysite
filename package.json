@@ -47,7 +47,9 @@
       "dist/nodes/HDWLinkedin/HdwLinkedinManagement.node.js",
       "dist/nodes/HDWLinkedin/HdwTwitter.node.js",
       "dist/nodes/HDWLinkedin/HdwWebParser.node.js",
-      "dist/nodes/HDWLinkedin/HdwJobBoards.node.js"
+      "dist/nodes/HDWLinkedin/HdwJobBoards.node.js",
+      "dist/nodes/HDWLinkedin/HdwReddit.node.js",
+      "dist/nodes/HDWLinkedin/HdwInstagram.node.js"
     ]
   },
   "devDependencies": {

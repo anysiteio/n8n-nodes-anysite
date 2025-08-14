@@ -19,8 +19,8 @@ export class HdwJobBoards implements INodeType {
 		defaults: {
 			name: 'HDW Job Boards',
 		},
-		inputs: [NodeConnectionType.Main],
-		outputs: [NodeConnectionType.Main],
+		inputs: ['main'],
+		outputs: ['main'],
 		credentials: [
 			{
 				name: 'hdwLinkedinApi',
@@ -40,9 +40,7 @@ export class HdwJobBoards implements INodeType {
 				name: 'resource',
 				type: 'options',
 				noDataExpression: true,
-				options: [
-					{ name: 'Glassdoor', value: 'glassdoor' },
-				],
+				options: [{ name: 'Glassdoor', value: 'glassdoor' }],
 				default: 'glassdoor',
 			},
 			{
@@ -56,7 +54,7 @@ export class HdwJobBoards implements INodeType {
 						name: 'Get Job List',
 						value: 'getJobList',
 						description: 'Search for Glassdoor job listings',
-						action: 'Search for Glassdoor job listings',
+						action: 'Search for glassdoor job listings',
 						routing: {
 							request: {
 								method: 'POST',
@@ -111,16 +109,17 @@ export class HdwJobBoards implements INodeType {
 						name: 'location',
 						type: 'string',
 						default: '',
-						description: 'Location name, e.g., "New York". Used if searching within a specific city/state.',
-						routing: { request: { body: { location: '={{$value}}' } } }
+						description:
+							'Location name, e.g., "New York". Used if searching within a specific city/state.',
+						routing: { request: { body: { location: '={{$value}}' } } },
 					},
 					{
 						displayName: 'Location ID',
 						name: 'location_id',
 						type: 'string',
 						default: '',
-						description: 'Internal Glassdoor location ID (usually not set directly).',
-						routing: { request: { body: { location_id: '={{$value}}' } } }
+						description: 'Internal Glassdoor location ID (usually not set directly)',
+						routing: { request: { body: { location_id: '={{$value}}' } } },
 					},
 					{
 						displayName: 'Location Type',
@@ -131,9 +130,9 @@ export class HdwJobBoards implements INodeType {
 							{ name: 'State', value: '2' },
 							{ name: 'Country', value: '3' },
 						],
-						default: '',
-						description: 'Location type (CITY, STATE, or COUNTRY).',
-						routing: { request: { body: { location_type: '={{$value}}' } } }
+						default: '1',
+						description: 'Location type (CITY, STATE, or COUNTRY)',
+						routing: { request: { body: { location_type: '={{$value}}' } } },
 					},
 					{
 						displayName: 'Country',
@@ -162,16 +161,16 @@ export class HdwJobBoards implements INodeType {
 							{ name: 'Ireland', value: 'ireland' },
 						],
 						default: 'usa',
-						description: 'Country for the Glassdoor domain.',
-						routing: { request: { body: { country: '={{$value}}' } } }
+						description: 'Country for the Glassdoor domain',
+						routing: { request: { body: { country: '={{$value}}' } } },
 					},
 					{
 						displayName: 'Page',
 						name: 'page',
 						type: 'number',
 						default: 1,
-						description: 'Page number for pagination from 1 to 10 (default: 1).',
-						routing: { request: { body: { page: '={{$value}}' } } }
+						description: 'Page number for pagination from 1 to 10 (default: 1)',
+						routing: { request: { body: { page: '={{$value}}' } } },
 					},
 					{
 						displayName: 'Company Size',
@@ -186,40 +185,41 @@ export class HdwJobBoards implements INodeType {
 							{ name: '5000+ Employees', value: 5 },
 						],
 						default: 0,
-						description: 'Company size filter.',
-						routing: { request: { body: { company_size: '={{$value}}' } } }
+						description: 'Company size filter',
+						routing: { request: { body: { company_size: '={{$value}}' } } },
 					},
 					{
 						displayName: 'Remote Only',
 						name: 'is_remote',
 						type: 'boolean',
 						default: false,
-						description: 'Whether to filter only remote jobs.',
-						routing: { request: { body: { is_remote: '={{$value}}' } } }
+						description: 'Whether to filter only remote jobs',
+						routing: { request: { body: { is_remote: '={{$value}}' } } },
 					},
 					{
 						displayName: 'Hours Old',
 						name: 'hours_old',
 						type: 'number',
 						default: '',
-						description: 'Show job listings published in the last X hours.',
-						routing: { request: { body: { hours_old: '={{$value}}' } } }
+						description: 'Show job listings published in the last X hours',
+						routing: { request: { body: { hours_old: '={{$value}}' } } },
 					},
 					{
 						displayName: 'Easy Apply',
 						name: 'easy_apply',
 						type: 'boolean',
 						default: false,
-						description: 'Filter job listings with "Easy Apply".',
-						routing: { request: { body: { easy_apply: '={{$value}}' } } }
+						description: 'Filter job listings with "Easy Apply"',
+						routing: { request: { body: { easy_apply: '={{$value}}' } } },
 					},
 					{
 						displayName: 'Job Type',
 						name: 'job_type',
 						type: 'string',
 						default: '',
-						description: 'Job type (e.g., "fulltime", "parttime", etc.). Supports international variants.',
-						routing: { request: { body: { job_type: '={{$value}}' } } }
+						description:
+							'Job type (e.g., "fulltime", "parttime", etc.). Supports international variants.',
+						routing: { request: { body: { job_type: '={{$value}}' } } },
 					},
 				],
 			},
@@ -257,7 +257,10 @@ export class HdwJobBoards implements INodeType {
 					body.keyword = this.getNodeParameter('keyword', i) as string;
 					body.count = this.getNodeParameter('count', i) as number;
 
-					const additionalFilters = this.getNodeParameter('additionalFilters', i, {}) as Record<string, any>;
+					const additionalFilters = this.getNodeParameter('additionalFilters', i, {}) as Record<
+						string,
+						any
+					>;
 					for (const key in additionalFilters) {
 						if (additionalFilters.hasOwnProperty(key) && additionalFilters[key] !== '') {
 							body[key] = additionalFilters[key];
@@ -270,7 +273,7 @@ export class HdwJobBoards implements INodeType {
 					url: `${baseURL}${endpoint}`,
 					body,
 					headers: {
-						'Accept': 'application/json',
+						Accept: 'application/json',
 						'Content-Type': 'application/json',
 					},
 					json: true,
@@ -279,7 +282,7 @@ export class HdwJobBoards implements INodeType {
 				const responseData = await this.helpers.httpRequestWithAuthentication.call(
 					this,
 					'hdwLinkedinApi',
-					options
+					options,
 				);
 
 				if (Array.isArray(responseData)) {
@@ -289,7 +292,6 @@ export class HdwJobBoards implements INodeType {
 				} else {
 					returnData.push({ json: responseData });
 				}
-
 			} catch (error: any) {
 				// Enhanced error handling to extract information from headers and response body
 				let errorMessage = error.message;
@@ -303,7 +305,7 @@ export class HdwJobBoards implements INodeType {
 				// Extract information from HTTP response if available
 				if (error.response) {
 					httpStatus = error.response.status || '';
-					
+
 					// Extract custom headers from HDW API
 					if (error.response.headers) {
 						apiError = error.response.headers['x-error'] || '';
@@ -334,7 +336,9 @@ export class HdwJobBoards implements INodeType {
 					if (executionTime) detailParts.push(`Execution Time: ${executionTime}s`);
 					if (tokenPoints) detailParts.push(`Token Points: ${tokenPoints}`);
 					if (error.response.data && error.response.data !== '{}') {
-						detailParts.push(`Response Body: ${typeof error.response.data === 'object' ? JSON.stringify(error.response.data) : error.response.data}`);
+						detailParts.push(
+							`Response Body: ${typeof error.response.data === 'object' ? JSON.stringify(error.response.data) : error.response.data}`,
+						);
 					}
 
 					if (detailParts.length > 0) {
@@ -351,8 +355,8 @@ export class HdwJobBoards implements INodeType {
 							apiError: apiError,
 							requestId: requestId,
 							executionTime: executionTime,
-							tokenPoints: tokenPoints
-						}
+							tokenPoints: tokenPoints,
+						},
 					});
 					continue;
 				}

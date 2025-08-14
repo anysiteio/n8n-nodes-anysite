@@ -1,8 +1,8 @@
 # n8n-nodes-hdw
 
-This is an n8n community node. It lets you use Horizon Data Wave services for LinkedIn, Twitter (X), and website parsing in your n8n workflows.
+This is an n8n community node. It lets you use Horizon Data Wave services for LinkedIn, Twitter (X), Reddit, Instagram, and website parsing in your n8n workflows.
 
-Horizon Data Wave provides advanced social network data extraction capabilities, allowing you to search for users, view profiles, analyze posts, gather company information, and manage social media accounts.
+Horizon Data Wave provides advanced social network data extraction capabilities, allowing you to search for users, view profiles, analyze posts, gather company information, and manage social media accounts across multiple platforms.
 
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
 
@@ -38,7 +38,7 @@ npm install n8n-nodes-hdw
 
 ## Operations
 
-This node package includes four separate nodes, each with its own set of capabilities:
+This node package includes six separate nodes, each with its own set of capabilities:
 
 ### HDW LinkedIn Node
 
@@ -113,6 +113,28 @@ Provides access to Twitter (X) data:
   * Engagement metrics (minimum replies, likes, retweets)
   * Date range specification
   * Search type (Top or Latest)
+
+### HDW Reddit Node
+
+Provides access to Reddit data:
+
+#### Search Resource
+* **Search Posts**: Search for Reddit posts with comprehensive filtering options including:
+  * Query-based search across all of Reddit
+  * Sort options (relevance, hot, new, top, rising, comments)
+  * Time filters (hour, day, week, month, year, all time)
+  * Subreddit-specific search
+
+### HDW Instagram Node
+
+Provides access to Instagram data:
+
+#### User Resource
+* **Get Profile**: Get Instagram user profile information including follower count, following count, bio, verification status
+* **Get Posts**: Retrieve posts from a specific Instagram user with media details
+
+#### Post Resource
+* **Get Comments**: Retrieve comments on an Instagram post
 
 ### HDW Web Parser Node (beta)
 

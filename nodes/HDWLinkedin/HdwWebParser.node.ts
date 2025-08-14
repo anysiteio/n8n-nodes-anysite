@@ -19,8 +19,8 @@ export class HdwWebParser implements INodeType {
 		defaults: {
 			name: 'HDW Web Parser',
 		},
-		inputs: [NodeConnectionType.Main],
-		outputs: [NodeConnectionType.Main],
+		inputs: ['main'],
+		outputs: ['main'],
 		credentials: [
 			{
 				name: 'hdwLinkedinApi',
@@ -51,7 +51,7 @@ export class HdwWebParser implements INodeType {
 						name: 'Map',
 						value: 'map',
 						description: 'Discover URLs from a starting point',
-						action: 'Discover URLs from a starting point',
+						action: 'Discover ur ls from a starting point',
 					},
 					{
 						name: 'Crawl',
@@ -99,7 +99,7 @@ export class HdwWebParser implements INodeType {
 				name: 'onlyMainContent',
 				type: 'boolean',
 				default: true,
-				description: 'Extract only the main content, filtering out navigation, footers, etc.',
+				description: 'Extract only the main content, filtering out navigation, footers, etc',
 				displayOptions: { show: { operation: ['scrape'] } },
 			},
 			{
@@ -119,7 +119,7 @@ export class HdwWebParser implements INodeType {
 				displayOptions: { show: { operation: ['scrape'] } },
 			},
 			{
-				displayName: 'Timeout (ms)',
+				displayName: 'Timeout (Ms)',
 				name: 'timeout',
 				type: 'number',
 				default: 1500,
@@ -179,8 +179,11 @@ export class HdwWebParser implements INodeType {
 				displayName: 'Limit',
 				name: 'limit',
 				type: 'number',
-				default: 1000,
-				description: 'Maximum number of URLs to return',
+				typeOptions: {
+					minValue: 1,
+				},
+				default: 50,
+				description: 'Max number of results to return',
 				displayOptions: { show: { operation: ['map'] } },
 			},
 			{
@@ -193,7 +196,7 @@ export class HdwWebParser implements INodeType {
 				displayOptions: { show: { operation: ['crawl'] } },
 			},
 			{
-				displayName: 'Timeout (seconds)',
+				displayName: 'Timeout (Seconds)',
 				name: 'timeout',
 				type: 'number',
 				default: 300,
@@ -247,7 +250,7 @@ export class HdwWebParser implements INodeType {
 					url: `${baseURL}${endpoint}`,
 					body,
 					headers: {
-						'Accept': 'application/json',
+						Accept: 'application/json',
 						'Content-Type': 'application/json',
 					},
 					json: true,
@@ -256,7 +259,7 @@ export class HdwWebParser implements INodeType {
 				const responseData = await this.helpers.httpRequestWithAuthentication.call(
 					this,
 					'hdwLinkedinApi',
-					options
+					options,
 				);
 
 				if (Array.isArray(responseData)) {
@@ -279,7 +282,7 @@ export class HdwWebParser implements INodeType {
 				// Extract information from HTTP response if available
 				if (error.response) {
 					httpStatus = error.response.status || '';
-					
+
 					// Extract custom headers from HDW API
 					if (error.response.headers) {
 						apiError = error.response.headers['x-error'] || '';
@@ -310,7 +313,9 @@ export class HdwWebParser implements INodeType {
 					if (executionTime) detailParts.push(`Execution Time: ${executionTime}s`);
 					if (tokenPoints) detailParts.push(`Token Points: ${tokenPoints}`);
 					if (error.response.data && error.response.data !== '{}') {
-						detailParts.push(`Response Body: ${typeof error.response.data === 'object' ? JSON.stringify(error.response.data) : error.response.data}`);
+						detailParts.push(
+							`Response Body: ${typeof error.response.data === 'object' ? JSON.stringify(error.response.data) : error.response.data}`,
+						);
 					}
 
 					if (detailParts.length > 0) {
@@ -327,8 +332,8 @@ export class HdwWebParser implements INodeType {
 							apiError: apiError,
 							requestId: requestId,
 							executionTime: executionTime,
-							tokenPoints: tokenPoints
-						}
+							tokenPoints: tokenPoints,
+						},
 					});
 					continue;
 				}

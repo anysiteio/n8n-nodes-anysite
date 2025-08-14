@@ -19,8 +19,8 @@ export class HdwTwitter implements INodeType {
 		defaults: {
 			name: 'HDW Twitter',
 		},
-		inputs: [NodeConnectionType.Main],
-		outputs: [NodeConnectionType.Main],
+		inputs: ['main'],
+		outputs: ['main'],
 		credentials: [
 			{
 				name: 'hdwLinkedinApi',
@@ -57,7 +57,7 @@ export class HdwTwitter implements INodeType {
 						name: 'Get Profile',
 						value: 'getProfile',
 						description: 'Get Twitter user profile',
-						action: 'Get Twitter user profile',
+						action: 'Get twitter user profile',
 						routing: {
 							request: {
 								method: 'POST',
@@ -73,7 +73,7 @@ export class HdwTwitter implements INodeType {
 						name: 'Get Posts',
 						value: 'getPosts',
 						description: 'Get Twitter user posts',
-						action: 'Get Twitter user posts',
+						action: 'Get twitter user posts',
 						routing: {
 							request: {
 								method: 'POST',
@@ -100,7 +100,7 @@ export class HdwTwitter implements INodeType {
 						name: 'Search Users',
 						value: 'searchUsers',
 						description: 'Search for Twitter users',
-						action: 'Search for Twitter users',
+						action: 'Search for twitter users',
 						routing: {
 							request: {
 								method: 'POST',
@@ -117,7 +117,7 @@ export class HdwTwitter implements INodeType {
 						name: 'Search Posts',
 						value: 'searchPosts',
 						description: 'Search for Twitter posts (tweets)',
-						action: 'Search for Twitter posts',
+						action: 'Search for twitter posts',
 						routing: {
 							request: {
 								method: 'POST',
@@ -183,7 +183,7 @@ export class HdwTwitter implements INodeType {
 						type: 'string',
 						default: '',
 						description: 'Tweets containing this exact phrase',
-						routing: { request: { body: { exact_phrase: '={{$value}}' } } }
+						routing: { request: { body: { exact_phrase: '={{$value}}' } } },
 					},
 					{
 						displayName: 'Any of These Words',
@@ -197,7 +197,7 @@ export class HdwTwitter implements INodeType {
 								property: 'any_of_these_words',
 								value: '={{ $value.split(",").map(item => item.trim()) }}',
 							},
-						}
+						},
 					},
 					{
 						displayName: 'None of These Words',
@@ -211,7 +211,7 @@ export class HdwTwitter implements INodeType {
 								property: 'none_of_these_words',
 								value: '={{ $value.split(",").map(item => item.trim()) }}',
 							},
-						}
+						},
 					},
 					{
 						displayName: 'These Hashtags',
@@ -225,7 +225,7 @@ export class HdwTwitter implements INodeType {
 								property: 'these_hashtags',
 								value: '={{ $value.split(",").map(item => item.trim()) }}',
 							},
-						}
+						},
 					},
 					{
 						displayName: 'Language',
@@ -246,7 +246,7 @@ export class HdwTwitter implements INodeType {
 						],
 						default: 'English',
 						description: 'Language of tweets to search for',
-						routing: { request: { body: { language: '={{$value}}' } } }
+						routing: { request: { body: { language: '={{$value}}' } } },
 					},
 					{
 						displayName: 'From These Accounts',
@@ -260,7 +260,7 @@ export class HdwTwitter implements INodeType {
 								property: 'from_these_accounts',
 								value: '={{ $value.split(",").map(item => item.trim()) }}',
 							},
-						}
+						},
 					},
 					{
 						displayName: 'To These Accounts',
@@ -274,7 +274,7 @@ export class HdwTwitter implements INodeType {
 								property: 'to_these_accounts',
 								value: '={{ $value.split(",").map(item => item.trim()) }}',
 							},
-						}
+						},
 					},
 					{
 						displayName: 'Mentioning These Accounts',
@@ -288,7 +288,7 @@ export class HdwTwitter implements INodeType {
 								property: 'mentioning_these_accounts',
 								value: '={{ $value.split(",").map(item => item.trim()) }}',
 							},
-						}
+						},
 					},
 					{
 						displayName: 'Minimum Replies',
@@ -296,7 +296,7 @@ export class HdwTwitter implements INodeType {
 						type: 'number',
 						default: 0,
 						description: 'Minimum number of replies',
-						routing: { request: { body: { min_replies: '={{$value}}' } } }
+						routing: { request: { body: { min_replies: '={{$value}}' } } },
 					},
 					{
 						displayName: 'Minimum Likes',
@@ -304,7 +304,7 @@ export class HdwTwitter implements INodeType {
 						type: 'number',
 						default: 0,
 						description: 'Minimum number of likes',
-						routing: { request: { body: { min_likes: '={{$value}}' } } }
+						routing: { request: { body: { min_likes: '={{$value}}' } } },
 					},
 					{
 						displayName: 'Minimum Retweets',
@@ -312,7 +312,7 @@ export class HdwTwitter implements INodeType {
 						type: 'number',
 						default: 0,
 						description: 'Minimum number of retweets',
-						routing: { request: { body: { min_retweets: '={{$value}}' } } }
+						routing: { request: { body: { min_retweets: '={{$value}}' } } },
 					},
 					{
 						displayName: 'From Date',
@@ -326,7 +326,7 @@ export class HdwTwitter implements INodeType {
 								property: 'from_date',
 								value: '={{ Math.round(new Date($value).getTime() / 1000) }}',
 							},
-						}
+						},
 					},
 					{
 						displayName: 'To Date',
@@ -340,7 +340,7 @@ export class HdwTwitter implements INodeType {
 								property: 'to_date',
 								value: '={{ Math.round(new Date($value).getTime() / 1000) }}',
 							},
-						}
+						},
 					},
 					{
 						displayName: 'Search Type',
@@ -352,7 +352,7 @@ export class HdwTwitter implements INodeType {
 						],
 						default: 'Top',
 						description: 'Type of search results',
-						routing: { request: { body: { search_type: '={{$value}}' } } }
+						routing: { request: { body: { search_type: '={{$value}}' } } },
 					},
 				],
 			},
@@ -382,8 +382,7 @@ export class HdwTwitter implements INodeType {
 		const baseURL = 'https://api.horizondatawave.ai';
 		const delayInMs = 100;
 
-		const sleep = (ms: number): Promise<void> =>
-			new Promise((resolve) => setTimeout(resolve, ms));
+		const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 
 		for (let i = 0; i < items.length; i++) {
 			try {
@@ -406,8 +405,7 @@ export class HdwTwitter implements INodeType {
 						body.user = this.getNodeParameter('user', i) as string;
 						body.count = this.getNodeParameter('count', i) as number;
 					}
-				}
-				else if (resource === 'search') {
+				} else if (resource === 'search') {
 					if (operation === 'searchUsers') {
 						endpoint = '/api/twitter/search/users';
 						body.query = this.getNodeParameter('query', i) as string;
@@ -416,7 +414,10 @@ export class HdwTwitter implements INodeType {
 						endpoint = '/api/twitter/search/posts';
 						body.query = this.getNodeParameter('query', i) as string;
 						body.count = this.getNodeParameter('count', i) as number;
-						const advancedOptions = this.getNodeParameter('advancedOptions', i, {}) as Record<string, any>;
+						const advancedOptions = this.getNodeParameter('advancedOptions', i, {}) as Record<
+							string,
+							any
+						>;
 						for (const key in advancedOptions) {
 							if (advancedOptions[key] !== '') {
 								body[key] = advancedOptions[key];
@@ -439,7 +440,7 @@ export class HdwTwitter implements INodeType {
 				const responseData = await this.helpers.httpRequestWithAuthentication.call(
 					this,
 					'hdwLinkedinApi',
-					options
+					options,
 				);
 
 				if (Array.isArray(responseData)) {
@@ -466,7 +467,7 @@ export class HdwTwitter implements INodeType {
 				// Extract information from HTTP response if available
 				if (error.response) {
 					httpStatus = error.response.status || '';
-					
+
 					// Extract custom headers from HDW API
 					if (error.response.headers) {
 						apiError = error.response.headers['x-error'] || '';
@@ -497,7 +498,9 @@ export class HdwTwitter implements INodeType {
 					if (executionTime) detailParts.push(`Execution Time: ${executionTime}s`);
 					if (tokenPoints) detailParts.push(`Token Points: ${tokenPoints}`);
 					if (error.response.data && error.response.data !== '{}') {
-						detailParts.push(`Response Body: ${typeof error.response.data === 'object' ? JSON.stringify(error.response.data) : error.response.data}`);
+						detailParts.push(
+							`Response Body: ${typeof error.response.data === 'object' ? JSON.stringify(error.response.data) : error.response.data}`,
+						);
 					}
 
 					if (detailParts.length > 0) {
@@ -514,8 +517,8 @@ export class HdwTwitter implements INodeType {
 							apiError: apiError,
 							requestId: requestId,
 							executionTime: executionTime,
-							tokenPoints: tokenPoints
-						}
+							tokenPoints: tokenPoints,
+						},
 					});
 					continue;
 				}

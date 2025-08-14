@@ -1,4 +1,10 @@
-import { IExecuteFunctions, INodeExecutionData, INodeType, INodeTypeDescription, NodeConnectionType } from 'n8n-workflow';
+import {
+	IExecuteFunctions,
+	INodeExecutionData,
+	INodeType,
+	INodeTypeDescription,
+	NodeConnectionType,
+} from 'n8n-workflow';
 
 export class HdwLinkedinManagement implements INodeType {
 	description: INodeTypeDescription = {
@@ -13,8 +19,8 @@ export class HdwLinkedinManagement implements INodeType {
 		defaults: {
 			name: 'HDW LinkedIn Management',
 		},
-		inputs: [NodeConnectionType.Main],
-		outputs: [NodeConnectionType.Main],
+		inputs: ['main'],
+		outputs: ['main'],
 		credentials: [
 			{
 				name: 'hdwLinkedinApi',
@@ -126,7 +132,6 @@ export class HdwLinkedinManagement implements INodeType {
 				name: 'connectedAfter',
 				type: 'number',
 				default: '',
-				required: false,
 				description: 'Filter users that were connected after this timestamp',
 				displayOptions: { show: { resource: ['user'], operation: ['getConnections'] } },
 			},
@@ -151,10 +156,15 @@ export class HdwLinkedinManagement implements INodeType {
 				displayName: 'Company URN',
 				name: 'company',
 				type: 'string',
-				required: false,
 				default: '',
-				description: 'Company URN where the account is admin (must include prefix, e.g. company:1441)',
-				displayOptions: { show: { resource: ['chat'], operation: ['sendMessage', 'getMessages', 'getConversations'] } },
+				description:
+					'Company URN where the account is admin (must include prefix, e.g. company:1441)',
+				displayOptions: {
+					show: {
+						resource: ['chat'],
+						operation: ['sendMessage', 'getMessages', 'getConversations'],
+					},
+				},
 			},
 			{
 				displayName: 'Message Text',
@@ -170,7 +180,6 @@ export class HdwLinkedinManagement implements INodeType {
 				name: 'connectedAfter',
 				type: 'number',
 				default: '',
-				required: false,
 				description: 'Filter conversations created after this timestamp',
 				displayOptions: { show: { resource: ['chat'], operation: ['getConversations'] } },
 			},
@@ -189,7 +198,9 @@ export class HdwLinkedinManagement implements INodeType {
 				required: true,
 				default: '',
 				description: 'Post text content',
-				displayOptions: { show: { resource: ['post'], operation: ['createPost', 'createComment'] } },
+				displayOptions: {
+					show: { resource: ['post'], operation: ['createPost', 'createComment'] },
+				},
 			},
 			{
 				displayName: 'Visibility',
@@ -222,7 +233,8 @@ export class HdwLinkedinManagement implements INodeType {
 				type: 'string',
 				required: true,
 				default: '',
-				description: 'URN of the activity or comment to comment on (e.g., "activity:123" or "comment:(activity:123,456)")',
+				description:
+					'URN of the activity or comment to comment on (e.g., "activity:123" or "comment:(activity:123,456)")',
 				displayOptions: { show: { resource: ['post'], operation: ['createComment'] } },
 			},
 			{
@@ -232,7 +244,7 @@ export class HdwLinkedinManagement implements INodeType {
 				default: 300,
 				description: 'Timeout in seconds',
 			},
-		]
+		],
 	};
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
@@ -327,7 +339,7 @@ export class HdwLinkedinManagement implements INodeType {
 					url: `${baseURL}${endpoint}`,
 					body,
 					headers: {
-						'Accept': 'application/json',
+						Accept: 'application/json',
 						'Content-Type': 'application/json',
 					},
 					json: true,
@@ -336,7 +348,7 @@ export class HdwLinkedinManagement implements INodeType {
 				const responseData = await this.helpers.httpRequestWithAuthentication.call(
 					this,
 					'hdwLinkedinApi',
-					options
+					options,
 				);
 
 				if (Array.isArray(responseData)) {
@@ -363,7 +375,7 @@ export class HdwLinkedinManagement implements INodeType {
 				// Extract information from HTTP response if available
 				if (error.response) {
 					httpStatus = error.response.status || '';
-					
+
 					// Extract custom headers from HDW API
 					if (error.response.headers) {
 						apiError = error.response.headers['x-error'] || '';
@@ -394,7 +406,9 @@ export class HdwLinkedinManagement implements INodeType {
 					if (executionTime) detailParts.push(`Execution Time: ${executionTime}s`);
 					if (tokenPoints) detailParts.push(`Token Points: ${tokenPoints}`);
 					if (error.response.data && error.response.data !== '{}') {
-						detailParts.push(`Response Body: ${typeof error.response.data === 'object' ? JSON.stringify(error.response.data) : error.response.data}`);
+						detailParts.push(
+							`Response Body: ${typeof error.response.data === 'object' ? JSON.stringify(error.response.data) : error.response.data}`,
+						);
 					}
 
 					if (detailParts.length > 0) {
@@ -411,8 +425,8 @@ export class HdwLinkedinManagement implements INodeType {
 							apiError: apiError,
 							requestId: requestId,
 							executionTime: executionTime,
-							tokenPoints: tokenPoints
-						}
+							tokenPoints: tokenPoints,
+						},
 					});
 					continue;
 				}
