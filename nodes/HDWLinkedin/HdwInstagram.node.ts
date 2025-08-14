@@ -19,8 +19,8 @@ export class HdwInstagram implements INodeType {
 		defaults: {
 			name: 'HDW Instagram',
 		},
-		inputs: ['main'],
-		outputs: ['main'],
+		inputs: [NodeConnectionType.Main],
+		outputs: [NodeConnectionType.Main],
 		credentials: [
 			{
 				name: 'hdwLinkedinApi',

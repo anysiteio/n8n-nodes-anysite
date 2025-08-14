@@ -22,8 +22,8 @@ export class HdwLinkedin implements INodeType {
 		defaults: {
 			name: 'HDW LinkedIn',
 		},
-		inputs: ['main'],
-		outputs: ['main'],
+		inputs: [NodeConnectionType.Main],
+		outputs: [NodeConnectionType.Main],
 		credentials: [
 			{
 				name: 'hdwLinkedinApi',

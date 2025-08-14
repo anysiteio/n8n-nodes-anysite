@@ -19,8 +19,8 @@ export class HdwTwitter implements INodeType {
 		defaults: {
 			name: 'HDW Twitter',
 		},
-		inputs: ['main'],
-		outputs: ['main'],
+		inputs: [NodeConnectionType.Main],
+		outputs: [NodeConnectionType.Main],
 		credentials: [
 			{
 				name: 'hdwLinkedinApi',

@@ -19,8 +19,8 @@ export class HdwJobBoards implements INodeType {
 		defaults: {
 			name: 'HDW Job Boards',
 		},
-		inputs: ['main'],
-		outputs: ['main'],
+		inputs: [NodeConnectionType.Main],
+		outputs: [NodeConnectionType.Main],
 		credentials: [
 			{
 				name: 'hdwLinkedinApi',

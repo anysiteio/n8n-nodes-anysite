@@ -19,8 +19,8 @@ export class HdwWebParser implements INodeType {
 		defaults: {
 			name: 'HDW Web Parser',
 		},
-		inputs: ['main'],
-		outputs: ['main'],
+		inputs: [NodeConnectionType.Main],
+		outputs: [NodeConnectionType.Main],
 		credentials: [
 			{
 				name: 'hdwLinkedinApi',

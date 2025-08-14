@@ -19,8 +19,8 @@ export class HdwReddit implements INodeType {
 		defaults: {
 			name: 'HDW Reddit',
 		},
-		inputs: ['main'],
-		outputs: ['main'],
+		inputs: [NodeConnectionType.Main],
+		outputs: [NodeConnectionType.Main],
 		credentials: [
 			{
 				name: 'hdwLinkedinApi',
