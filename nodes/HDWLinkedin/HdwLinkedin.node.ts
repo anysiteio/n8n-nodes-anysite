@@ -135,18 +135,6 @@ export class HdwLinkedin implements INodeType {
 						value: 'getUserComments',
 						description: 'Get LinkedIn user comments',
 						action: 'Get linkedin user comments',
-						routing: {
-							request: {
-								method: 'POST',
-								url: '/api/linkedin/user/comments',
-								body: {
-									urn: '={{$parameter["urn"]}}',
-									count: '={{$parameter["count"]}}',
-									timeout: '={{$parameter["timeout"]}}',
-									commented_after: '={{$parameter["commented_after"]}}',
-								},
-							},
-						},
 					},
 				],
 				default: 'search',
@@ -1491,6 +1479,15 @@ export class HdwLinkedin implements INodeType {
 						body.urn = this.getNodeParameter('urn', i) as string;
 						body.count = this.getNodeParameter('count', i, 10) as number;
 						body.timeout = this.getNodeParameter('timeout', i, 300) as number;
+					} else if (operation === 'getUserComments') {
+						endpoint = '/api/linkedin/user/comments';
+						body.urn = this.getNodeParameter('urn', i) as string;
+						body.count = this.getNodeParameter('count', i, 10) as number;
+						body.timeout = this.getNodeParameter('timeout', i, 300) as number;
+						const commentedAfter = this.getNodeParameter('commented_after', i, '') as number;
+						if (commentedAfter) {
+							body.commented_after = commentedAfter;
+						}
 					}
 				} else if (resource === 'email') {
 					if (operation === 'getUserByEmail') {
