@@ -130,6 +130,24 @@ export class HdwLinkedin implements INodeType {
 							},
 						},
 					},
+					{
+						name: 'Get User Comments',
+						value: 'getUserComments',
+						description: 'Get LinkedIn user comments',
+						action: 'Get linkedin user comments',
+						routing: {
+							request: {
+								method: 'POST',
+								url: '/api/linkedin/user/comments',
+								body: {
+									urn: '={{$parameter["urn"]}}',
+									count: '={{$parameter["count"]}}',
+									timeout: '={{$parameter["timeout"]}}',
+									commented_after: '={{$parameter["commented_after"]}}',
+								},
+							},
+						},
+					},
 				],
 				default: 'search',
 			},
@@ -606,7 +624,7 @@ export class HdwLinkedin implements INodeType {
 				required: true,
 				default: '',
 				description: 'User URN (must include prefix, e.g. fsd_profile:ACoAA...)',
-				displayOptions: { show: { resource: ['user'], operation: ['getPosts', 'getReactions'] } },
+				displayOptions: { show: { resource: ['user'], operation: ['getPosts', 'getReactions', 'getUserComments'] } },
 			},
 			{
 				displayName: 'Count',
@@ -614,7 +632,7 @@ export class HdwLinkedin implements INodeType {
 				type: 'number',
 				default: 10,
 				description: 'Maximum number of results',
-				displayOptions: { show: { resource: ['user'], operation: ['getPosts', 'getReactions'] } },
+				displayOptions: { show: { resource: ['user'], operation: ['getPosts', 'getReactions', 'getUserComments'] } },
 			},
 			{
 				displayName: 'Timeout',
@@ -622,7 +640,15 @@ export class HdwLinkedin implements INodeType {
 				type: 'number',
 				default: 300,
 				description: 'Timeout in seconds',
-				displayOptions: { show: { resource: ['user'], operation: ['getPosts', 'getReactions'] } },
+				displayOptions: { show: { resource: ['user'], operation: ['getPosts', 'getReactions', 'getUserComments'] } },
+			},
+			{
+				displayName: 'Commented After',
+				name: 'commented_after',
+				type: 'number',
+				default: '',
+				description: 'Filter comments that created after the specified timestamp (optional)',
+				displayOptions: { show: { resource: ['user'], operation: ['getUserComments'] } },
 			},
 			{
 				displayName: 'Email',
