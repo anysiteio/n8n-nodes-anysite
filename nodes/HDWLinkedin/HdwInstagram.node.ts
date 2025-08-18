@@ -65,6 +65,7 @@ export class HdwInstagram implements INodeType {
 								body: {
 									user: '={{$parameter["user"]}}',
 									timeout: '={{$parameter["timeout"]}}',
+									with_creation_date: '={{$parameter["with_creation_date"]}}',
 								},
 							},
 						},
@@ -153,6 +154,14 @@ export class HdwInstagram implements INodeType {
 				displayOptions: { show: { resource: ['post'], operation: ['getComments'] } },
 			},
 			{
+				displayName: 'With Creation Date',
+				name: 'with_creation_date',
+				type: 'boolean',
+				default: false,
+				description: 'Whether to include account creation date in the response',
+				displayOptions: { show: { resource: ['user'], operation: ['getProfile'] } },
+			},
+			{
 				displayName: 'Timeout',
 				name: 'timeout',
 				type: 'number',
@@ -186,6 +195,7 @@ export class HdwInstagram implements INodeType {
 
 					if (operation === 'getProfile') {
 						endpoint = '/api/instagram/user';
+						body.with_creation_date = this.getNodeParameter('with_creation_date', i, false) as boolean;
 					} else if (operation === 'getPosts') {
 						endpoint = '/api/instagram/user/posts';
 						body.count = this.getNodeParameter('count', i) as number;
