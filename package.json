@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-hdw",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "description": "n8n node to access Horizon Data Wave API services",
   "keywords": [
     "n8n-community-node-package",
