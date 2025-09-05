@@ -132,9 +132,15 @@ Provides access to Instagram data:
 #### User Resource
 * **Get Profile**: Get Instagram user profile information including follower count, following count, bio, verification status
 * **Get Posts**: Retrieve posts from a specific Instagram user with media details
+* **Get Friendships**: Get followers or following list of an Instagram user
+* **Get Reels**: Retrieve reels from a specific Instagram user
 
 #### Post Resource
 * **Get Comments**: Retrieve comments on an Instagram post
+* **Get Likes**: Retrieve likes on an Instagram post
+
+#### Search Resource
+* **Search Posts**: Search for Instagram posts by query with configurable result count
 
 ### HDW Web Parser Node (beta)
 
