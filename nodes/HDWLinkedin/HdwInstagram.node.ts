@@ -43,6 +43,7 @@ export class HdwInstagram implements INodeType {
 				options: [
 					{ name: 'User', value: 'user' },
 					{ name: 'Post', value: 'post' },
+					{ name: 'Search', value: 'search' },
 				],
 				default: 'user',
 			},
@@ -87,6 +88,41 @@ export class HdwInstagram implements INodeType {
 							},
 						},
 					},
+					{
+						name: 'Get Friendships',
+						value: 'getFriendships',
+						description: 'Get Instagram user followers/following',
+						action: 'Get instagram user friendships',
+						routing: {
+							request: {
+								method: 'POST',
+								url: '/api/instagram/user/friendships',
+								body: {
+									user: '={{$parameter["user"]}}',
+									count: '={{$parameter["count"]}}',
+									type: '={{$parameter["friendshipType"]}}',
+									timeout: '={{$parameter["timeout"]}}',
+								},
+							},
+						},
+					},
+					{
+						name: 'Get Reels',
+						value: 'getReels',
+						description: 'Get Instagram user reels',
+						action: 'Get instagram user reels',
+						routing: {
+							request: {
+								method: 'POST',
+								url: '/api/instagram/user/reels',
+								body: {
+									user: '={{$parameter["user"]}}',
+									count: '={{$parameter["count"]}}',
+									timeout: '={{$parameter["timeout"]}}',
+								},
+							},
+						},
+					},
 				],
 				default: 'getProfile',
 			},
@@ -114,8 +150,52 @@ export class HdwInstagram implements INodeType {
 							},
 						},
 					},
+					{
+						name: 'Get Likes',
+						value: 'getLikes',
+						description: 'Get Instagram post likes',
+						action: 'Get instagram post likes',
+						routing: {
+							request: {
+								method: 'POST',
+								url: '/api/instagram/post/likes',
+								body: {
+									post: '={{$parameter["post"]}}',
+									count: '={{$parameter["count"]}}',
+									timeout: '={{$parameter["timeout"]}}',
+								},
+							},
+						},
+					},
 				],
 				default: 'getComments',
+			},
+			{
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: { show: { resource: ['search'] } },
+				options: [
+					{
+						name: 'Search Posts',
+						value: 'searchPosts',
+						description: 'Search Instagram posts by query',
+						action: 'Search instagram posts',
+						routing: {
+							request: {
+								method: 'POST',
+								url: '/api/instagram/search/posts',
+								body: {
+									query: '={{$parameter["query"]}}',
+									count: '={{$parameter["count"]}}',
+									timeout: '={{$parameter["timeout"]}}',
+								},
+							},
+						},
+					},
+				],
+				default: 'searchPosts',
 			},
 			{
 				displayName: 'User',
@@ -136,6 +216,35 @@ export class HdwInstagram implements INodeType {
 				displayOptions: { show: { resource: ['user'], operation: ['getPosts'] } },
 			},
 			{
+				displayName: 'Friendship Type',
+				name: 'friendshipType',
+				type: 'options',
+				required: true,
+				options: [
+					{ name: 'Followers', value: 'followers' },
+					{ name: 'Following', value: 'following' },
+				],
+				default: 'followers',
+				description: 'Type of friendship to retrieve',
+				displayOptions: { show: { resource: ['user'], operation: ['getFriendships'] } },
+			},
+			{
+				displayName: 'Count',
+				name: 'count',
+				type: 'number',
+				default: 50,
+				description: 'Maximum number of friendships to return',
+				displayOptions: { show: { resource: ['user'], operation: ['getFriendships'] } },
+			},
+			{
+				displayName: 'Count',
+				name: 'count',
+				type: 'number',
+				default: 12,
+				description: 'Maximum number of reels to return',
+				displayOptions: { show: { resource: ['user'], operation: ['getReels'] } },
+			},
+			{
 				displayName: 'Post ID',
 				name: 'post',
 				type: 'string',
@@ -143,7 +252,7 @@ export class HdwInstagram implements INodeType {
 				default: '',
 				placeholder: '3676612811870810696_1777543238',
 				description: 'Instagram post ID',
-				displayOptions: { show: { resource: ['post'], operation: ['getComments'] } },
+				displayOptions: { show: { resource: ['post'], operation: ['getComments', 'getLikes'] } },
 			},
 			{
 				displayName: 'Count',
@@ -152,6 +261,32 @@ export class HdwInstagram implements INodeType {
 				default: 20,
 				description: 'Maximum number of comments to return',
 				displayOptions: { show: { resource: ['post'], operation: ['getComments'] } },
+			},
+			{
+				displayName: 'Count',
+				name: 'count',
+				type: 'number',
+				default: 100,
+				description: 'Maximum number of likes to return',
+				displayOptions: { show: { resource: ['post'], operation: ['getLikes'] } },
+			},
+			{
+				displayName: 'Search Query',
+				name: 'query',
+				type: 'string',
+				required: true,
+				default: '',
+				placeholder: 'Intel',
+				description: 'Search query for Instagram posts',
+				displayOptions: { show: { resource: ['search'], operation: ['searchPosts'] } },
+			},
+			{
+				displayName: 'Count',
+				name: 'count',
+				type: 'number',
+				default: 20,
+				description: 'Maximum number of posts to return',
+				displayOptions: { show: { resource: ['search'], operation: ['searchPosts'] } },
 			},
 			{
 				displayName: 'With Creation Date',
@@ -199,11 +334,29 @@ export class HdwInstagram implements INodeType {
 					} else if (operation === 'getPosts') {
 						endpoint = '/api/instagram/user/posts';
 						body.count = this.getNodeParameter('count', i) as number;
+					} else if (operation === 'getFriendships') {
+						endpoint = '/api/instagram/user/friendships';
+						body.count = this.getNodeParameter('count', i) as number;
+						body.type = this.getNodeParameter('friendshipType', i) as string;
+					} else if (operation === 'getReels') {
+						endpoint = '/api/instagram/user/reels';
+						body.count = this.getNodeParameter('count', i) as number;
 					}
 				} else if (resource === 'post') {
+					const post = this.getNodeParameter('post', i) as string;
+					body.post = post;
+
 					if (operation === 'getComments') {
 						endpoint = '/api/instagram/post/comments';
-						body.post = this.getNodeParameter('post', i) as string;
+						body.count = this.getNodeParameter('count', i) as number;
+					} else if (operation === 'getLikes') {
+						endpoint = '/api/instagram/post/likes';
+						body.count = this.getNodeParameter('count', i) as number;
+					}
+				} else if (resource === 'search') {
+					if (operation === 'searchPosts') {
+						endpoint = '/api/instagram/search/posts';
+						body.query = this.getNodeParameter('query', i) as string;
 						body.count = this.getNodeParameter('count', i) as number;
 					}
 				}
