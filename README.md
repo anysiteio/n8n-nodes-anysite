@@ -136,6 +136,7 @@ Provides access to Instagram data:
 * **Get Reels**: Retrieve reels from a specific Instagram user
 
 #### Post Resource
+* **Get Post**: Get detailed Instagram post information including metadata, media, and statistics
 * **Get Comments**: Retrieve comments on an Instagram post
 * **Get Likes**: Retrieve likes on an Instagram post
 

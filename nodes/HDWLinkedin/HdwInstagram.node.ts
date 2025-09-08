@@ -134,6 +134,22 @@ export class HdwInstagram implements INodeType {
 				displayOptions: { show: { resource: ['post'] } },
 				options: [
 					{
+						name: 'Get Post',
+						value: 'getPost',
+						description: 'Get detailed Instagram post information',
+						action: 'Get instagram post details',
+						routing: {
+							request: {
+								method: 'POST',
+								url: '/api/instagram/post',
+								body: {
+									post: '={{$parameter["post"]}}',
+									timeout: '={{$parameter["timeout"]}}',
+								},
+							},
+						},
+					},
+					{
 						name: 'Get Comments',
 						value: 'getComments',
 						description: 'Get Instagram post comments',
@@ -168,7 +184,7 @@ export class HdwInstagram implements INodeType {
 						},
 					},
 				],
-				default: 'getComments',
+				default: 'getPost',
 			},
 			{
 				displayName: 'Operation',
@@ -252,7 +268,7 @@ export class HdwInstagram implements INodeType {
 				default: '',
 				placeholder: '3676612811870810696_1777543238',
 				description: 'Instagram post ID',
-				displayOptions: { show: { resource: ['post'], operation: ['getComments', 'getLikes'] } },
+				displayOptions: { show: { resource: ['post'], operation: ['getPost', 'getComments', 'getLikes'] } },
 			},
 			{
 				displayName: 'Count',
@@ -346,7 +362,9 @@ export class HdwInstagram implements INodeType {
 					const post = this.getNodeParameter('post', i) as string;
 					body.post = post;
 
-					if (operation === 'getComments') {
+					if (operation === 'getPost') {
+						endpoint = '/api/instagram/post';
+					} else if (operation === 'getComments') {
 						endpoint = '/api/instagram/post/comments';
 						body.count = this.getNodeParameter('count', i) as number;
 					} else if (operation === 'getLikes') {
