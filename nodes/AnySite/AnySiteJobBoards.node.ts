@@ -19,8 +19,8 @@ export class AnySiteJobBoards implements INodeType {
 		defaults: {
 			name: 'AnySite Job Boards',
 		},
-		inputs: ['main'],
-		outputs: ['main'],
+		inputs: [NodeConnectionType.Main],
+		outputs: [NodeConnectionType.Main],
 		credentials: [
 			{
 				name: 'anySiteApi',

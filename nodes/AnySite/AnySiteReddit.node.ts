@@ -19,8 +19,8 @@ export class AnySiteReddit implements INodeType {
 		defaults: {
 			name: 'AnySite Reddit',
 		},
-		inputs: ['main'],
-		outputs: ['main'],
+		inputs: [NodeConnectionType.Main],
+		outputs: [NodeConnectionType.Main],
 		credentials: [
 			{
 				name: 'anySiteApi',

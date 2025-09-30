@@ -22,8 +22,8 @@ export class AnySiteLinkedin implements INodeType {
 		defaults: {
 			name: 'AnySite LinkedIn',
 		},
-		inputs: ['main'],
-		outputs: ['main'],
+		inputs: [NodeConnectionType.Main],
+		outputs: [NodeConnectionType.Main],
 		credentials: [
 			{
 				name: 'anySiteApi',

@@ -19,8 +19,8 @@ export class AnySiteTwitter implements INodeType {
 		defaults: {
 			name: 'AnySite Twitter',
 		},
-		inputs: ['main'],
-		outputs: ['main'],
+		inputs: [NodeConnectionType.Main],
+		outputs: [NodeConnectionType.Main],
 		credentials: [
 			{
 				name: 'anySiteApi',

@@ -19,8 +19,8 @@ export class AnySiteInstagram implements INodeType {
 		defaults: {
 			name: 'AnySite Instagram',
 		},
-		inputs: ['main'],
-		outputs: ['main'],
+		inputs: [NodeConnectionType.Main],
+		outputs: [NodeConnectionType.Main],
 		credentials: [
 			{
 				name: 'anySiteApi',

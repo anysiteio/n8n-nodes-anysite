@@ -19,8 +19,8 @@ export class AnySiteWebParser implements INodeType {
 		defaults: {
 			name: 'AnySite Web Parser',
 		},
-		inputs: ['main'],
-		outputs: ['main'],
+		inputs: [NodeConnectionType.Main],
+		outputs: [NodeConnectionType.Main],
 		credentials: [
 			{
 				name: 'anySiteApi',
