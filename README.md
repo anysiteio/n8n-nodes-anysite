@@ -1,8 +1,8 @@
-# n8n-nodes-hdw
+# n8n-nodes-anysite
 
-This is an n8n community node. It lets you use Horizon Data Wave services for LinkedIn, Twitter (X), Reddit, Instagram, and website parsing in your n8n workflows.
+This is an n8n community node. It lets you use AnySite services for LinkedIn, Twitter (X), Reddit, Instagram, and website parsing in your n8n workflows.
 
-Horizon Data Wave provides advanced social network data extraction capabilities, allowing you to search for users, view profiles, analyze posts, gather company information, and manage social media accounts across multiple platforms.
+AnySite provides advanced social network data extraction capabilities, allowing you to search for users, view profiles, analyze posts, gather company information, and manage social media accounts across multiple platforms.
 
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
 
@@ -15,32 +15,32 @@ Horizon Data Wave provides advanced social network data extraction capabilities,
 ## Installation
 
 Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) in the n8n community nodes documentation.
-[NPM Packege](https://www.npmjs.com/package/n8n-nodes-hdw)
+[NPM Package](https://www.npmjs.com/package/n8n-nodes-anysite)
 1. Go to the Settings -> Community nodes -> Press Install
-2. Install nmp package: **n8n-nodes-hdw**
+2. Install npm package: **n8n-nodes-anysite**
 ![img.png](img/img.png)
-3. Reboot you n8n app
-4. Find in n8n pallet HDW Linkedin node
+3. Reboot your n8n app
+4. Find in n8n palette AnySite nodes
 
 	![img_1.png](img/img_1.png)
 
-	and HDW Linkedin Agent tool
+	and AnySite Agent tools
 
 	![img_2.png](img/img_2.png)
 5. !!!REBOOT YOUR N8N APP!!!
-6. Profit 
+6. Profit
 
 **For local installation:**
 
 ```bash
-npm install n8n-nodes-hdw
+npm install n8n-nodes-anysite
 ```
 
 ## Operations
 
 This node package includes six separate nodes, each with its own set of capabilities:
 
-### HDW LinkedIn Node
+### AnySite LinkedIn Node
 
 The main LinkedIn data extraction node supporting the following resources and operations:
 
@@ -76,7 +76,7 @@ The main LinkedIn data extraction node supporting the following resources and op
 * **Search Companies**: Find LinkedIn companies using Google search
 * **Google Search**: Perform a general Google search
 
-### HDW LinkedIn Management Node
+### AnySite LinkedIn Management Node
 
 Enables actions on LinkedIn using authenticated accounts:
 
@@ -94,7 +94,7 @@ Enables actions on LinkedIn using authenticated accounts:
 * **Create Post**: Create a new LinkedIn post
 * **Create Comment**: Create a comment on a LinkedIn post or another comment
 
-### HDW Twitter Node
+### AnySite Twitter Node
 
 Provides access to Twitter (X) data:
 
@@ -114,7 +114,7 @@ Provides access to Twitter (X) data:
   * Date range specification
   * Search type (Top or Latest)
 
-### HDW Reddit Node
+### AnySite Reddit Node
 
 Provides access to Reddit data:
 
@@ -125,7 +125,7 @@ Provides access to Reddit data:
   * Time filters (hour, day, week, month, year, all time)
   * Subreddit-specific search
 
-### HDW Instagram Node
+### AnySite Instagram Node
 
 Provides access to Instagram data:
 
@@ -143,9 +143,9 @@ Provides access to Instagram data:
 #### Search Resource
 * **Search Posts**: Search for Instagram posts by query with configurable result count
 
-### HDW Web Parser Node (beta)
+### AnySite Web Parser Node (beta)
 
-Provides powerful website scraping and crawling functionality via the Horizon Data Wave API:
+Provides powerful website scraping and crawling functionality via the AnySite API:
 
 * **Scrape**: Scrape a single webpage and return one or more of the following formats – Markdown, HTML, raw HTML, links, screenshot, or full-page screenshot. Options are available to extract only the main content, switch to a mobile viewport, skip TLS verification, remove base64 images, and set a load timeout.
 * **Map**: Discover and list URLs starting from a given page. You can control whether sitemaps are used, include sub-domains, specify a search term filter, and set a maximum number of URLs to return.
@@ -153,13 +153,13 @@ Provides powerful website scraping and crawling functionality via the Horizon Da
 
 ## Credentials
 
-To use this node, you need an API key from Horizon Data Wave:
+To use this node, you need an API key from AnySite:
 
-1. Register for an account at [horizondatawave.ai](https://app.horizondatawave.ai/)
+1. Register for an account at [anysite.io](https://app.anysite.io/)
 2. Navigate to your account settings to generate an API key
 3. For operations that require account management (like chat, connections, etc.), you'll also need to provide your Account ID
 
-When setting up the node in n8n, add your credentials using the "HDW LinkedIn API" credential type.
+When setting up the node in n8n, add your credentials using the "AnySite API" credential type.
 
 ## Compatibility
 
@@ -169,5 +169,5 @@ When setting up the node in n8n, add your credentials using the "HDW LinkedIn AP
 ## Resources
 
 * [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/)
-* [Horizon Data Wave API Documentation](https://api.horizondatawave.ai/redoc)
-* [Horizon Data Wave Website](https://horizondatawave.ai)
+* [AnySite API Documentation](https://api.anysite.io/redoc)
+* [AnySite Website](https://anysite.io)

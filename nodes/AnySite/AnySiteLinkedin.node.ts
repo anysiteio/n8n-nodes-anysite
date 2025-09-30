@@ -9,29 +9,29 @@ import {
 	NodeConnectionType,
 } from 'n8n-workflow';
 
-export class HdwLinkedin implements INodeType {
+export class AnySiteLinkedin implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'HDW LinkedIn',
-		name: 'hdwLinkedin',
-		icon: 'file:hdw_logo.png',
+		displayName: 'AnySite LinkedIn',
+		name: 'anySiteLinkedin',
+		icon: 'file:light.png',
 		group: ['transform'],
 		version: 1,
 		usableAsTool: true,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
-		description: 'Integrate with Horizon Data Wave LinkedIn API',
+		description: 'Integrate with AnySite LinkedIn API',
 		defaults: {
-			name: 'HDW LinkedIn',
+			name: 'AnySite LinkedIn',
 		},
-		inputs: [NodeConnectionType.Main],
-		outputs: [NodeConnectionType.Main],
+		inputs: ['main'],
+		outputs: ['main'],
 		credentials: [
 			{
-				name: 'hdwLinkedinApi',
+				name: 'anySiteApi',
 				required: true,
 			},
 		],
 		requestDefaults: {
-			baseURL: 'https://api.horizondatawave.ai',
+			baseURL: 'https://api.anysite.io',
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',

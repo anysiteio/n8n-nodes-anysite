@@ -6,24 +6,24 @@ import {
 	NodeConnectionType,
 } from 'n8n-workflow';
 
-export class HdwLinkedinManagement implements INodeType {
+export class AnySiteLinkedinManagement implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'HDW LinkedIn Management',
-		name: 'hdwLinkedinManagement',
-		icon: 'file:hdw_logo.png',
+		displayName: 'AnySite LinkedIn Management',
+		name: 'anySiteLinkedinManagement',
+		icon: 'file:light.png',
 		group: ['transform'],
 		version: 1,
 		usableAsTool: true,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
-		description: 'Manage LinkedIn accounts through Horizon Data Wave API',
+		description: 'Manage LinkedIn accounts through AnySite API',
 		defaults: {
-			name: 'HDW LinkedIn Management',
+			name: 'AnySite LinkedIn Management',
 		},
-		inputs: [NodeConnectionType.Main],
-		outputs: [NodeConnectionType.Main],
+		inputs: ['main'],
+		outputs: ['main'],
 		credentials: [
 			{
-				name: 'hdwLinkedinApi',
+				name: 'anySiteApi',
 				required: true,
 			},
 		],
@@ -261,7 +261,7 @@ export class HdwLinkedinManagement implements INodeType {
 			throw new Error('Account ID is missing in credentials!');
 		}
 
-		const baseURL = 'https://api.horizondatawave.ai';
+		const baseURL = 'https://api.anysite.io';
 		const delayInMs = 1000;
 
 		const sleep = (ms: number): Promise<void> =>

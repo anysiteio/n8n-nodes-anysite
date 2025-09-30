@@ -1,7 +1,7 @@
 {
-  "name": "n8n-nodes-hdw",
-  "version": "0.9.6",
-  "description": "n8n node to access Horizon Data Wave API services",
+  "name": "n8n-nodes-anysite",
+  "version": "1.0.0",
+  "description": "n8n node to access AnySite API services",
   "keywords": [
     "n8n-community-node-package",
     "linkedin",
@@ -9,15 +9,15 @@
     "x",
     "reddit",
     "instagram",
-    "hdw",
-    "horizon data wave",
-    "social media"
+    "anysite",
+    "social media",
+    "data extraction"
   ],
   "license": "MIT",
-  "homepage": "https://horizondatawave.ai",
+  "homepage": "https://anysite.io",
   "author": {
-    "name": "Horizon Data Wave",
-    "email": "support@horizondatawave.ai"
+    "name": "AnySite",
+    "email": "support@anysite.io"
   },
   "repository": {
     "type": "git",
@@ -43,16 +43,16 @@
   "n8n": {
     "n8nNodesApiVersion": 1,
     "credentials": [
-      "dist/credentials/HDWLinkedinApi.credentials.js"
+      "dist/credentials/AnySiteApi.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/HDWLinkedin/HdwLinkedin.node.js",
-      "dist/nodes/HDWLinkedin/HdwLinkedinManagement.node.js",
-      "dist/nodes/HDWLinkedin/HdwTwitter.node.js",
-      "dist/nodes/HDWLinkedin/HdwWebParser.node.js",
-      "dist/nodes/HDWLinkedin/HdwJobBoards.node.js",
-      "dist/nodes/HDWLinkedin/HdwReddit.node.js",
-      "dist/nodes/HDWLinkedin/HdwInstagram.node.js"
+      "dist/nodes/AnySite/AnySiteLinkedin.node.js",
+      "dist/nodes/AnySite/AnySiteLinkedinManagement.node.js",
+      "dist/nodes/AnySite/AnySiteTwitter.node.js",
+      "dist/nodes/AnySite/AnySiteWebParser.node.js",
+      "dist/nodes/AnySite/AnySiteJobBoards.node.js",
+      "dist/nodes/AnySite/AnySiteReddit.node.js",
+      "dist/nodes/AnySite/AnySiteInstagram.node.js"
     ]
   },
   "devDependencies": {

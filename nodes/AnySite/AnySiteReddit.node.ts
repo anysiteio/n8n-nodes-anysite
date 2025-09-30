@@ -6,29 +6,29 @@ import {
 	NodeConnectionType,
 } from 'n8n-workflow';
 
-export class HdwReddit implements INodeType {
+export class AnySiteReddit implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'HDW Reddit',
-		name: 'hdwReddit',
-		icon: 'file:hdw_logo.png',
+		displayName: 'AnySite Reddit',
+		name: 'anySiteReddit',
+		icon: 'file:light.png',
 		group: ['transform'],
 		version: 1,
 		usableAsTool: true,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
-		description: 'Integrate with Horizon Data Wave Reddit API',
+		description: 'Integrate with AnySite Reddit API',
 		defaults: {
-			name: 'HDW Reddit',
+			name: 'AnySite Reddit',
 		},
-		inputs: [NodeConnectionType.Main],
-		outputs: [NodeConnectionType.Main],
+		inputs: ['main'],
+		outputs: ['main'],
 		credentials: [
 			{
-				name: 'hdwLinkedinApi',
+				name: 'anySiteApi',
 				required: true,
 			},
 		],
 		requestDefaults: {
-			baseURL: 'https://api.horizondatawave.ai',
+			baseURL: 'https://api.anysite.io',
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',

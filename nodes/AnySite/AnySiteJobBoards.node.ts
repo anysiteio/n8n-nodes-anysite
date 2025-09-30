@@ -6,29 +6,29 @@ import {
 	NodeConnectionType,
 } from 'n8n-workflow';
 
-export class HdwJobBoards implements INodeType {
+export class AnySiteJobBoards implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'HDW Job Boards (beta)',
-		name: 'hdwJobBoards',
-		icon: 'file:hdw_logo.png',
+		displayName: 'AnySite Job Boards (beta)',
+		name: 'anySiteJobBoards',
+		icon: 'file:light.png',
 		group: ['transform'],
 		version: 1,
 		usableAsTool: true,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
-		description: 'Integrate with Horizon Data Wave Job Boards API',
+		description: 'Integrate with AnySite Job Boards API',
 		defaults: {
-			name: 'HDW Job Boards',
+			name: 'AnySite Job Boards',
 		},
-		inputs: [NodeConnectionType.Main],
-		outputs: [NodeConnectionType.Main],
+		inputs: ['main'],
+		outputs: ['main'],
 		credentials: [
 			{
-				name: 'hdwLinkedinApi',
+				name: 'anySiteApi',
 				required: true,
 			},
 		],
 		requestDefaults: {
-			baseURL: 'https://api.horizondatawave.ai',
+			baseURL: 'https://api.anysite.io',
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',

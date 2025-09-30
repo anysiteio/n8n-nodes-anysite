@@ -6,29 +6,29 @@ import {
 	NodeConnectionType,
 } from 'n8n-workflow';
 
-export class HdwWebParser implements INodeType {
+export class AnySiteWebParser implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'HDW Web Parser (beta)',
-		name: 'hdwWebParser',
-		icon: 'file:hdw_logo.png',
+		displayName: 'AnySite Web Parser (beta)',
+		name: 'anySiteWebParser',
+		icon: 'file:light.png',
 		group: ['transform'],
 		version: 1,
 		usableAsTool: true,
 		subtitle: '={{$parameter["operation"]}}',
-		description: 'Parse and crawl websites using Horizon Data Wave API',
+		description: 'Parse and crawl websites using AnySite API',
 		defaults: {
-			name: 'HDW Web Parser',
+			name: 'AnySite Web Parser',
 		},
-		inputs: [NodeConnectionType.Main],
-		outputs: [NodeConnectionType.Main],
+		inputs: ['main'],
+		outputs: ['main'],
 		credentials: [
 			{
-				name: 'hdwLinkedinApi',
+				name: 'anySiteApi',
 				required: true,
 			},
 		],
 		requestDefaults: {
-			baseURL: 'https://api.horizondatawave.ai',
+			baseURL: 'https://api.anysite.io',
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',

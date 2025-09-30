@@ -1,10 +1,10 @@
-// credentials/HDWLinkedinApi.credentials.ts
+// credentials/AnySiteApi.credentials.ts
 import { IAuthenticateGeneric, ICredentialType, INodeProperties } from 'n8n-workflow';
 
-export class HDWLinkedinApi implements ICredentialType {
-	name = 'hdwLinkedinApi';
-	displayName = 'HDW LinkedIn';
-	documentationUrl = 'https://horizondatawave.ai/redoc';
+export class AnySiteApi implements ICredentialType {
+	name = 'anySiteApi';
+	displayName = 'AnySite API';
+	documentationUrl = 'https://anysite.io/redoc';
 
 	properties: INodeProperties[] = [
 		{

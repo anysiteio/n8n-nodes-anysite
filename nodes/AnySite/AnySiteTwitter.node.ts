@@ -6,29 +6,29 @@ import {
 	NodeConnectionType,
 } from 'n8n-workflow';
 
-export class HdwTwitter implements INodeType {
+export class AnySiteTwitter implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'HDW Twitter',
-		name: 'hdwTwitter',
-		icon: 'file:hdw_logo.png',
+		displayName: 'AnySite Twitter',
+		name: 'anySiteTwitter',
+		icon: 'file:light.png',
 		group: ['transform'],
 		version: 1,
 		usableAsTool: true,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
-		description: 'Integrate with Horizon Data Wave Twitter (X) API',
+		description: 'Integrate with AnySite Twitter (X) API',
 		defaults: {
-			name: 'HDW Twitter',
+			name: 'AnySite Twitter',
 		},
-		inputs: [NodeConnectionType.Main],
-		outputs: [NodeConnectionType.Main],
+		inputs: ['main'],
+		outputs: ['main'],
 		credentials: [
 			{
-				name: 'hdwLinkedinApi',
+				name: 'anySiteApi',
 				required: true,
 			},
 		],
 		requestDefaults: {
-			baseURL: 'https://api.horizondatawave.ai',
+			baseURL: 'https://api.anysite.io',
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
