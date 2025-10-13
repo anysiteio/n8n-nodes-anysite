@@ -3,7 +3,7 @@ import {
 	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
-	NodeConnectionType,
+	NodeConnectionTypes,
 } from 'n8n-workflow';
 
 export class AnySiteLinkedinManagement implements INodeType {
@@ -19,8 +19,8 @@ export class AnySiteLinkedinManagement implements INodeType {
 		defaults: {
 			name: 'AnySite LinkedIn Management',
 		},
-		inputs: [NodeConnectionType.Main],
-		outputs: [NodeConnectionType.Main],
+		inputs: [NodeConnectionTypes.Main],
+		outputs: [NodeConnectionTypes.Main],
 		credentials: [
 			{
 				name: 'anySiteApi',
