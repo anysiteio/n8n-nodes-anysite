@@ -1422,9 +1422,6 @@ export class AnySiteLinkedin implements INodeType {
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		const items = this.getInputData();
 		const returnData: INodeExecutionData[] = [];
-		const delayInMs = 1000;
-
-		const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 
 		for (let i = 0; i < items.length; i++) {
 			try {
@@ -1713,9 +1710,6 @@ export class AnySiteLinkedin implements INodeType {
 					returnData.push({ json: responseData });
 				}
 
-				if (i < items.length - 1) {
-					await sleep(delayInMs);
-				}
 			} catch (error: any) {
 				// Enhanced error handling to extract information from headers and response body
 				let errorMessage = error.message;

@@ -327,9 +327,6 @@ export class AnySiteInstagram implements INodeType {
 		const returnData: INodeExecutionData[] = [];
 
 		const baseURL = 'https://api.horizondatawave.ai';
-		const delayInMs = 100;
-
-		const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 
 		for (let i = 0; i < items.length; i++) {
 			try {
@@ -404,9 +401,6 @@ export class AnySiteInstagram implements INodeType {
 					returnData.push({ json: responseData });
 				}
 
-				if (i < items.length - 1) {
-					await sleep(delayInMs);
-				}
 			} catch (error: any) {
 				// Enhanced error handling to extract information from headers and response body
 				let errorMessage = error.message;

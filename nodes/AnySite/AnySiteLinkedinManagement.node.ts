@@ -262,12 +262,6 @@ export class AnySiteLinkedinManagement implements INodeType {
 		}
 
 		const baseURL = 'https://api.anysite.io';
-		const delayInMs = 1000;
-
-		const sleep = (ms: number): Promise<void> =>
-			new Promise((resolve) => {
-				setTimeout(resolve, ms);
-			});
 
 		for (let i = 0; i < items.length; i++) {
 			try {
@@ -357,10 +351,6 @@ export class AnySiteLinkedinManagement implements INodeType {
 					}
 				} else {
 					returnData.push({ json: responseData });
-				}
-
-				if (i < items.length - 1) {
-					await sleep(delayInMs);
 				}
 			} catch (error: any) {
 				// Enhanced error handling to extract information from headers and response body
