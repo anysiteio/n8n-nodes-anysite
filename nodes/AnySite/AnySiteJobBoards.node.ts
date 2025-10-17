@@ -230,7 +230,7 @@ export class AnySiteJobBoards implements INodeType {
 		const items = this.getInputData();
 		const returnData: INodeExecutionData[] = [];
 
-		const credentials = await this.getCredentials('hdwLinkedinApi');
+		const credentials = await this.getCredentials('anySiteApi');
 		if (!credentials) {
 			throw new Error('No credentials provided!');
 		}
@@ -281,7 +281,7 @@ export class AnySiteJobBoards implements INodeType {
 
 				const responseData = await this.helpers.httpRequestWithAuthentication.call(
 					this,
-					'hdwLinkedinApi',
+					'anySiteApi',
 					options,
 				);
 

@@ -4,7 +4,7 @@ import { IAuthenticateGeneric, ICredentialType, INodeProperties } from 'n8n-work
 export class AnySiteApi implements ICredentialType {
 	name = 'anySiteApi';
 	displayName = 'AnySite API';
-	documentationUrl = 'https://anysite.io/redoc';
+	documentationUrl = 'https://docs.anysite.io/';
 
 	properties: INodeProperties[] = [
 		{

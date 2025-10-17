@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-anysite",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "n8n node to access AnySite API services",
   "keywords": [
     "n8n-community-node-package",
@@ -67,5 +67,10 @@
   },
   "peerDependencies": {
     "n8n-workflow": "*"
+  },
+  "pnpm": {
+    "overrides": {
+      "form-data": ">=4.0.4"
+    }
   }
 }

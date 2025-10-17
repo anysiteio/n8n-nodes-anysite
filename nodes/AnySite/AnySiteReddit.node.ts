@@ -196,7 +196,7 @@ export class AnySiteReddit implements INodeType {
 
 				const responseData = await this.helpers.httpRequestWithAuthentication.call(
 					this,
-					'hdwLinkedinApi',
+					'anySiteApi',
 					options,
 				);
 
