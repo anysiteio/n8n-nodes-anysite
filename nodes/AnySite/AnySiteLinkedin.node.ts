@@ -1687,7 +1687,7 @@ export class AnySiteLinkedin implements INodeType {
 
 				const options: IHttpRequestOptions = {
 					method,
-					url: `https://api.horizondatawave.ai${endpoint}`,
+					url: `https://api.anysite.io${endpoint}`,
 					body,
 					headers: {
 						Accept: 'application/json',

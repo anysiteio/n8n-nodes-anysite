@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-anysite",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "n8n node to access AnySite API services",
   "keywords": [
     "n8n-community-node-package",
@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/horizondatawave/n8n-nodes-hdw.git"
+    "url": "https://github.com/anysiteio/n8n-nodes-anysite.git"
   },
   "engines": {
     "node": ">=18.10",

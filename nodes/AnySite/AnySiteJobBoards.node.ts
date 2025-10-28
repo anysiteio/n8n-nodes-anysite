@@ -239,7 +239,7 @@ export class AnySiteJobBoards implements INodeType {
 			throw new Error('Account ID is missing in credentials!');
 		}
 
-		const baseURL = 'https://api.horizondatawave.ai';
+		const baseURL = 'https://api.anysite.io';
 
 		for (let i = 0; i < items.length; i++) {
 			try {

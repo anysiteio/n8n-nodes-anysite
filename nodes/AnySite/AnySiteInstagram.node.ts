@@ -326,7 +326,7 @@ export class AnySiteInstagram implements INodeType {
 		const items = this.getInputData();
 		const returnData: INodeExecutionData[] = [];
 
-		const baseURL = 'https://api.horizondatawave.ai';
+		const baseURL = 'https://api.anysite.io';
 
 		for (let i = 0; i < items.length; i++) {
 			try {

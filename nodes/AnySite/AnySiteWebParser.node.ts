@@ -214,7 +214,7 @@ export class AnySiteWebParser implements INodeType {
 			try {
 				const operation = this.getNodeParameter('operation', i) as string;
 				const customBaseUrl = this.getNodeParameter('baseUrl', i, '') as string;
-				const baseURL = customBaseUrl || 'https://api.horizondatawave.ai/api/website';
+				const baseURL = customBaseUrl || 'https://api.anysite.io/api/website';
 
 				let endpoint = '';
 				const body: Record<string, any> = {};
