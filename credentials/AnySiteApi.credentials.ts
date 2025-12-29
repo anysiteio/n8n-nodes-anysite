@@ -1,7 +1,7 @@
 // credentials/AnySiteApi.credentials.ts
 import { IAuthenticateGeneric, ICredentialType, INodeProperties } from 'n8n-workflow';
 
-export default class AnySiteApi implements ICredentialType {
+export class AnySiteApi implements ICredentialType {
 	name = 'anySiteApi';
 	displayName = 'AnySite API';
 	documentationUrl = 'https://docs.anysite.io/';
