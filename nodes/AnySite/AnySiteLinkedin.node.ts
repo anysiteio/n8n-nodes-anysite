@@ -9,7 +9,7 @@ import {
 	NodeConnectionTypes,
 } from 'n8n-workflow';
 
-export class AnySiteLinkedin implements INodeType {
+export default class AnySiteLinkedin implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'AnySite LinkedIn',
 		name: 'anySiteLinkedin',

@@ -6,7 +6,7 @@ import {
 	NodeConnectionTypes,
 } from 'n8n-workflow';
 
-export class AnySiteReddit implements INodeType {
+export default class AnySiteReddit implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'AnySite Reddit',
 		name: 'anySiteReddit',

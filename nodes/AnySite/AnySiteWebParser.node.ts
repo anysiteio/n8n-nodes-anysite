@@ -6,7 +6,7 @@ import {
 	NodeConnectionTypes,
 } from 'n8n-workflow';
 
-export class AnySiteWebParser implements INodeType {
+export default class AnySiteWebParser implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'AnySite Web Parser (beta)',
 		name: 'anySiteWebParser',

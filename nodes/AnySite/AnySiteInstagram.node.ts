@@ -6,7 +6,7 @@ import {
 	NodeConnectionTypes,
 } from 'n8n-workflow';
 
-export class AnySiteInstagram implements INodeType {
+export default class AnySiteInstagram implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'AnySite Instagram',
 		name: 'anySiteInstagram',

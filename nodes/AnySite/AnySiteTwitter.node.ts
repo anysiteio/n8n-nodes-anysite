@@ -6,7 +6,7 @@ import {
 	NodeConnectionTypes,
 } from 'n8n-workflow';
 
-export class AnySiteTwitter implements INodeType {
+export default class AnySiteTwitter implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'AnySite Twitter',
 		name: 'anySiteTwitter',

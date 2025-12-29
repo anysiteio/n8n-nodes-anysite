@@ -6,7 +6,7 @@ import {
 	NodeConnectionTypes,
 } from 'n8n-workflow';
 
-export class AnySiteJobBoards implements INodeType {
+export default class AnySiteJobBoards implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'AnySite Job Boards (beta)',
 		name: 'anySiteJobBoards',
