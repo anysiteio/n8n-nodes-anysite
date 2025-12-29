@@ -1,5 +1,5 @@
 {
-	"node": "n8n-nodes-base.hdw",
+	"node": "n8n-nodes-base.AnySite",
 	"nodeVersion": "1.0",
 	"codexVersion": "1.0",
 	"categories": ["Sales", "Communication"],

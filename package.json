@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-anysite",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "n8n node to access AnySite API services",
   "keywords": [
     "n8n-community-node-package",
