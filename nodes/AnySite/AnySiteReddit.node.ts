@@ -3,7 +3,6 @@ import {
 	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
-	NodeConnectionTypes,
 } from 'n8n-workflow';
 
 export class AnySiteReddit implements INodeType {
@@ -19,8 +18,8 @@ export class AnySiteReddit implements INodeType {
 		defaults: {
 			name: 'AnySite Reddit',
 		},
-		inputs: [NodeConnectionTypes.Main],
-		outputs: [NodeConnectionTypes.Main],
+		inputs: ['main'],
+		outputs: ['main'],
 		credentials: [
 			{
 				name: 'anySiteApi',

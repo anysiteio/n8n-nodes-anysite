@@ -3,7 +3,6 @@ import {
 	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
-	NodeConnectionTypes,
 } from 'n8n-workflow';
 
 export class AnySiteTwitter implements INodeType {
@@ -19,8 +18,8 @@ export class AnySiteTwitter implements INodeType {
 		defaults: {
 			name: 'AnySite Twitter',
 		},
-		inputs: [NodeConnectionTypes.Main],
-		outputs: [NodeConnectionTypes.Main],
+		inputs: ['main'],
+		outputs: ['main'],
 		credentials: [
 			{
 				name: 'anySiteApi',

@@ -3,7 +3,6 @@ import {
 	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
-	NodeConnectionTypes,
 } from 'n8n-workflow';
 
 export class AnySiteWebParser implements INodeType {
@@ -19,8 +18,8 @@ export class AnySiteWebParser implements INodeType {
 		defaults: {
 			name: 'AnySite Web Parser',
 		},
-		inputs: [NodeConnectionTypes.Main],
-		outputs: [NodeConnectionTypes.Main],
+		inputs: ['main'],
+		outputs: ['main'],
 		credentials: [
 			{
 				name: 'anySiteApi',
